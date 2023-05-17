@@ -24,8 +24,8 @@ const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
         transition
         cursor-pointer"
     >
-      <button className="playbtn" {...props}>
-        <AdjustmentsHorizontalIcon className="h-10 w-10 stroke-width-1.5 stroke-white fill-none" />
+      <button className="playbtn" {...props} onClick={onClick}>
+        <AdjustmentsHorizontalIcon className="h-12 w-12 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
       </button>
     </div>
   );

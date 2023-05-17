@@ -6,6 +6,7 @@ import PlayPauseButton from "./PlayPauseButton";
 import { useCallback, useEffect, useState } from "react";
 import ResetButton from "./ResetButton";
 import SettingsButton from "./SettingsButton";
+import Container from "@/app/Container";
 
 interface PomodoroTimerProps {
   onClick: () => void;
@@ -19,7 +20,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
   const [hours, setHours] = useState(hrs);
   const [minutes, setMinutes] = useState(mins);
   const [seconds, setSeconds] = useState(secs);
-  const [isRunning, SetisRunning] = useState(false);
+  const [isRunning, SetIsRunning] = useState(false);
 
   function formatTime(hrs: number, mins: number, secs: number): string {
     const formattedHours = hrs.toString().padStart(2, "0");
@@ -32,57 +33,53 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
   let targetTime = formatTime(hrs, mins, secs);
 
   useEffect(() => {
-    // const target = new Date(`1970-01-01T${targetTime}`);
-    // let countdown: NodeJS.Timeout | null = null;
-    // console.log(target);
-    // if (isRunning) {
-    const countdown = setInterval(() => {
-      // const endTime = new Date(`1970-01-01T00:00:00`);
+    let countdown: NodeJS.Timeout | null = null;
+    const p = hours * 3600 + minutes * 60 + seconds;
+    const t = hrs * 3600 + mins * 60 + secs;
+    setProgress(100 - (p * 100) / t);
+    if (isRunning) {
+      countdown = setInterval(() => {
+        if (hours === 0 && minutes === 0 && seconds === 0) {
+          SetIsRunning(false);
+        } else {
+          setSeconds(seconds - 1);
 
-      // console.log(seconds);
-
-      if (hours === 0 && minutes === 0 && seconds === 0) {
-        SetisRunning(false);
-      } else {
-        setSeconds(seconds - 1);
-        const p = hours * 3600 + minutes * 60 + seconds;
-        const t = hrs * 3600 + mins * 60 + secs;
-        setProgress(100 - (p * 100) / t);
-
-        // console.log(progress)
-        console.log(p / t);
-
-        if (seconds === 0) {
-          setMinutes(minutes - 1);
-          setSeconds(59);
+          if (seconds === 0) {
+            setMinutes(minutes - 1);
+            setSeconds(59);
+          }
+          if (minutes === 0 && seconds === 0) {
+            setHours(hours - 1);
+            setMinutes(59);
+            setSeconds(59);
+          }
+          // }
         }
-        if (minutes === 0 && seconds === 0) {
-          setHours(hours - 1);
-          setMinutes(59);
-          setSeconds(59);
-        }
-        // }
+      }, 1000);
+    }
+
+    return () => {
+      if (countdown) {
+        clearInterval(countdown);
       }
-    }, 1000);
-
-    return () => clearInterval(countdown);
-  }, [hours, minutes, seconds]);
+    };
+  }, [hours, minutes, seconds, isRunning, progress]);
 
   const handleStartStop = () => {
-    SetisRunning(!isRunning);
+    SetIsRunning(!isRunning);
   };
 
   const handleReset = () => {
     setHours(hrs);
     setMinutes(mins);
     setSeconds(secs);
-    SetisRunning(false);
+    SetIsRunning(false);
   };
 
   const handleSettings = () => {};
 
   return (
-    <div className="timer w-96 px-auto">
+    <div className="timer w-full items-center border px-auto">
       <CircularProgressbar
         value={progress}
         // text={`0:53:21`}
@@ -98,30 +95,31 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
           pathColor: "#4E7563",
           trailColor: "#F0E6D4",
           textSize: 20,
-          pathTransitionDuration: 4,
+          pathTransitionDuration: 1.05,
         })}
       />
       <div
         className="
-        relative
         items-center 
-        w-96
-        py-10
-        px-auto
+        border
+        relative 
+        w-full
+        p-10
         flex
         flex-row
-        justify-between
+        justify-around
+        right-11
         "
       >
-        <div>
+        <Container>
           <ResetButton onClick={handleReset} />
-        </div>
-        <div>
-          <PlayPauseButton onClick={handleStartStop} />
-        </div>
-        <div>
+        </Container>
+        <Container>
+          <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
+        </Container>
+        <Container>
           <SettingsButton onClick={handleSettings} />
-        </div>
+        </Container>
       </div>
     </div>
   );

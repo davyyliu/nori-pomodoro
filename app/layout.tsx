@@ -25,7 +25,7 @@ export default function RootLayout({
         <ClientOnly>
           <Navbar />
           <Background />
-          <PomodoroTimer hrs={0} mins={30} secs={0} />
+          <PomodoroTimer hrs={0} mins={10} secs={10} />
         </ClientOnly>
         {/* <div className="pb-20 pt-28">{children} TEST</div> */}
       </body>

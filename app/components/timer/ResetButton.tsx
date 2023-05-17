@@ -24,8 +24,8 @@ const ResetButton: React.FC<ResetButtonProps> = ({ props, onClick }) => {
         transition
         cursor-pointer"
     >
-      <button className="playbtn" {...props}>
-        <ArrowUturnLeftIcon className="h-10 w-10 stroke-width-1.5 stroke-white fill-none" />
+      <button className="playbtn" {...props} onClick={onClick}>
+        <ArrowUturnLeftIcon className="h-12 w-12 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
       </button>
     </div>
   );

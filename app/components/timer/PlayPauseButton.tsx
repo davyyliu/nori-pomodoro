@@ -1,39 +1,33 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import { PlayCircleIcon, PauseCircleIcon } from "@heroicons/react/24/outline";
 
 interface PlayPauseButtonProps {
   onClick: () => void;
+  clicked: boolean;
   props?: [];
 }
 
 const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
   props,
+  clicked,
   onClick,
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
-
   return (
     <div
-      onClick={handleClick}
       className="
         relative
         hover:opacity-80
         transition
         cursor-pointer"
     >
-      {isClicked ? (
-        <button className="playbtn" {...props}>
-          <PauseCircleIcon className="h-20 w-20 stroke-width-1.5 stroke-white fill-none" />
+      {clicked ? (
+        <button className="playbtn" {...props} onClick={onClick}>
+          <PauseCircleIcon className="h-24 w-24 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
         </button>
       ) : (
-        <button className="playbtn" {...props}>
-          <PlayCircleIcon className="h-20 w-20 stroke-width-1.5 stroke-white fill-none" />
+        <button className="playbtn" {...props} onClick={onClick}>
+          <PlayCircleIcon className="h-24 w-24 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
         </button>
       )}
     </div>
@@ -41,10 +35,3 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
 };
 
 export default PlayPauseButton;
-
-//             xmlns="http://www.w3.org/2000/svg"
-//             fill="none"
-//             viewBox="0 0 24 24"
-//             stroke-width="1.5"
-//             className="w-20 h-20"
-//             stroke="white"
