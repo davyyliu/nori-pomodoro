@@ -3,25 +3,243 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+/* colors {
+  #F0E6D4
+  #4E7563
+  #EA6A6D
+  #000000
+  #FFFFFF
+} */
+
+main {
+  position: relative;
+  background-color: rgb(0, 130, 181);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.backdrop {
+  position: absolute;
+  top: calc(57.8%);
+  left: calc(50%);
+  min-height: 150%;
+  width: 201.74%;
+  /* transform: translate(-48.83%, -89%); */
+  z-index: 1;
+}
+
+.bshadow {
+  position: absolute;
+  top: calc(70%);
+  left: calc(50%);
+  width: 201.74%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.r-big-ridge {
+  z-index: 3;
+  position: absolute;
+  width: 73.5%;
+  top: calc(79.5%);
+  left: calc(62%);
+}
+
+/* .pomodoro {
+  z-index: 99;
+  position: absolute;
+  width: 19%;
+  top: calc(20%);
+  left: calc(39.1%);
+  pointer-events: auto;
+} */
+
+.timer {
+  z-index: 99;
+  position: absolute;
+  width: 16%;
+  top: calc(21%);
+  left: calc(42.1%);
+  pointer-events: auto;
+}
+
+.playbtn {
+  z-index: 99;
+  position: absolute;
+  width: 16%;
+  top: calc(21%);
+  left: calc(42.1%);
+  pointer-events: auto;
+}
+
+.r-small-ridge {
+  z-index: 5;
+  position: absolute;
+  width: 24%;
+  top: calc(48.7%);
+  left: calc(89.3%);
+}
+
+.l-small-ridge {
+  z-index: 6;
+  position: absolute;
+  width: 17.5%;
+  top: calc(63.8%);
+  left: calc(8.54%);
+}
+
+.sun-rays {
+  z-index: 7;
+  position: absolute;
+  width: 20%;
+  top: calc(14.1%);
+  left: calc(91.4%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.r-branch {
+  z-index: 8;
+  position: absolute;
+  width: 15.2%;
+  top: calc(18%);
+  left: calc(92.75%);
+  transform: translate(-50%, -50%);
+}
+
+.l-big-ridge {
+  z-index: 9;
+  position: absolute;
+  width: 73.5%;
+  top: calc(83%);
+  left: calc(30.5%);
+}
+
+.l-branch {
+  z-index: 8;
+  position: absolute;
+  width: 12.2%;
+  top: calc(23%);
+  left: calc(6.11%);
+  transform: translate(-50%, -50%);
+}
+.m-ridge {
+  z-index: 11;
+  position: absolute;
+  width: 211.74%;
+  top: calc(44%);
+  left: calc(38%);
+}
+
+.small-bush {
+  z-index: 12;
+  position: absolute;
+  width: 201.74%;
+  top: calc(81.5%);
+  left: calc(73%);
+}
+
+.big-bush {
+  z-index: 13;
+  position: absolute;
+  width: 201.74%;
+  top: calc(70%);
+  left: calc(49.99%);
+}
+
+.fog {
+  z-index: 14;
+  position: absolute;
+  width: 201.74%;
+  top: calc(54%);
+  left: calc(49.99%);
+}
+
+@media (max-width: 725px) {
+  .backdrop {
+    width: initial;
+    height: 100%;
+    /* transform: translate(-48.83%, -89%); */
+  }
+  .bshadow {
+    position: absolute;
+    width: initial;
+    height: 100.78%;
+  }
+
+  .r-big-ridge {
+    width: initial;
+    height: 60.78%;
+  }
+
+  /* .pomodoro {
+    width: initial;
+    height: 13.78%;
+  } */
+
+  .timer {
+    width: initial;
+    height: 13.78%;
+  }
+
+  .r-small-ridge {
+    width: initial;
+    height: 27.78%;
+  }
+
+  .l-small-ridge {
+    width: initial;
+    height: 60.78%;
+  }
+
+  .sun-rays {
+    width: initial;
+    height: 60.78%;
+  }
+
+  .r-branch {
+    width: initial;
+    height: 20.78%;
+  }
+
+  .l-big-ridge {
+    width: initial;
+    height: 60.78%;
+  }
+
+  .l-branch {
+    width: initial;
+    height: 20.78%;
+  }
+
+  .m-ridge {
+    width: initial;
+    height: 60.78%;
+  }
+
+  .small-bush {
+    width: initial;
+    height: 60.78%;
+  }
+
+  .big-bush {
+    width: initial;
+    height: 40.78%;
+  }
+
+  .fog {
+    width: initial;
+    height: 40.78%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.parallax {
+  pointer-events: none;
+  /* transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99); */
+  transform: translate(-50%, -50%);
 }
