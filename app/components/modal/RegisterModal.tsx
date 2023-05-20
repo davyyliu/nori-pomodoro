@@ -13,7 +13,6 @@ import Input from "../Inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
 import { signIn } from "next-auth/react";
-import LoginModal from "./LoginModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
 const RegisterModal = () => {
@@ -103,12 +102,6 @@ const RegisterModal = () => {
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn("google")}
-      />
-      <Button
-        outline
-        label="Continue with Github"
-        icon={AiFillGithub}
-        onClick={() => signIn("github")}
       />
       <div
         className="text-neutral-500

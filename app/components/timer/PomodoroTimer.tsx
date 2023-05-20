@@ -12,7 +12,6 @@ import SettingsButton from "./SettingsButton";
 import useSettingsModal from "@/app/hooks/useSettingsModal";
 
 interface PomodoroTimerProps {
-  // onClick: () => void;
   studyhrs: number;
   studymins: number;
   studysecs: number;
@@ -45,6 +44,16 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     settingsModal.onOpen();
   }
 
+  const playSound = () => {
+    const audio = new Audio(
+      "/sounds/Tibetan Singing Bowl Sounds WAV TRIMMED.wav"
+    );
+
+    audio.volume = 0.25;
+
+    audio.play();
+  };
+
   function formatTime(hrs: number, mins: number, secs: number): string {
     const formattedHours = String(hrs).padStart(2, "0");
     const formattedMinutes = String(mins).padStart(2, "0");
@@ -69,16 +78,12 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     ) {
       setIsRunning(false);
       setSBType("Complete!");
-      console.log("Completed Pomodoro");
+      playSound();
     } else {
       if (isRunning && sbType != "Complete!") {
         countdown = setInterval(() => {
           if (hours === 0 && minutes === 0 && seconds === 0) {
-            console.log(currSess);
-            console.log(totalSess);
             setIsRunning(false);
-            // handleReset();
-            console.log("Complete");
           }
           if (hours === 0 && minutes === 0 && seconds === 0) {
             setIsRunning(false);
@@ -88,6 +93,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
               setHours(breakhrs);
               setMinutes(breakmins);
               setSeconds(breaksecs);
+              playSound();
             } else {
               if (currSess < totalSess) {
                 setCurrSess(currSess + 1);
@@ -95,6 +101,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
                 setHours(studyhrs);
                 setMinutes(studymins);
                 setSeconds(studysecs);
+                playSound();
               }
             }
           } else {
@@ -143,10 +150,15 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     setCurrSess(1);
   };
 
-  const handleSettings = () => {};
-
   return (
-    <div className="timer w-full items-center px-auto">
+    <div
+      className="
+      timer 
+      w-full 
+      items-center 
+      px-auto 
+      drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+    >
       <CircularProgressbarWithChildren
         value={progress}
         // text={`0:53:21`}
@@ -171,7 +183,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           ${sbType === "Break" ? "text-[#F0E6D4]" : ""}
         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
         font-bold 
-        text-4xl
+        text-5xl
         py-5`}
         >
           {sbType}
@@ -217,9 +229,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         "
       >
         <div className="flex grid-cols-3 p-5 items-center justify-center">
-          {/* <div className="flex space-x-24"> */}
           <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
-          {/* </div> */}
         </div>
       </div>
       <div className="grid grid-cols-2 items-center">
