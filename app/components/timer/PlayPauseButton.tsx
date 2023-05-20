@@ -27,7 +27,7 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
         </button>
       ) : (
         <button className="playbtn" {...props} onClick={onClick}>
-          <PlayCircleIcon className="h-24 w-24 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
+          <PlayCircleIcon className="h-24 w-24 stroke-width-1.5 stroke-[#4E7563] fill-none" />
         </button>
       )}
     </div>

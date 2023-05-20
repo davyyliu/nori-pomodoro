@@ -4,6 +4,13 @@ import Background from "./components/background/Background";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import { Nunito } from "next/font/google";
+import Modal from "./components/modal/Modal";
+import SettingsModal from "./components/modal/SettingsModal";
+import express from "express";
+import axios from "axios";
+import RegisterModal from "./components/modal/RegisterModal";
+import LoginModal from "./components/modal/LoginModal";
+import useSettingsModal from "./hooks/useSettingsModal";
 
 export const metadata = {
   title: "Nori Pomodoro",
@@ -25,7 +32,11 @@ export default function RootLayout({
         <ClientOnly>
           <Navbar />
           <Background />
-          <PomodoroTimer hrs={0} mins={10} secs={10} />
+          <RegisterModal />
+          <LoginModal />
+          <PomodoroTimer hrs={0} mins={0} secs={5} />
+          <SettingsModal />
+          {/* <Modal isOpen /> */}
         </ClientOnly>
         {/* <div className="pb-20 pt-28">{children} TEST</div> */}
       </body>

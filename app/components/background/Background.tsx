@@ -21,14 +21,14 @@ function update(cursorPosition) {
   });
 }
 
+update(0);
+
 window.addEventListener("mousemove", (e) => {
   xValue = e.clientX - window.innerWidth / 2;
   yValue = e.clientY - window.innerHeight / 2;
 
   update(e.clientX);
 });
-
-update(1);
 
 const Background = () => {
   const [maxHeight, setMaxHeight] = useState<number>(0);
@@ -59,7 +59,6 @@ const Background = () => {
         height={1200}
         width={1920}
         className="parallax backdrop"
-        data-speedx="0.3"
         data-speedy="0.31"
         data-speedz="0"
         data-distance="-200"
@@ -78,7 +77,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax r-big-ridge"
-        data-speedx="0.27"
+        data-speedx="0.1"
         data-speedy="0.28"
         data-speedz="0"
         src="/images/Right Big Ridge.png"
@@ -89,7 +88,6 @@ const Background = () => {
         height={621}
         width={991}
         className=" pomodoro"
-        data-speedx="0.27"
         data-speedy="0.3"
         data-speedz="0"
         src="/images/Pomodoro.png"
@@ -100,7 +98,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax r-small-ridge"
-        data-speedx="0.24"
+        data-speedx="0.0"
         data-speedy="0.15"
         data-speedz="0.0"
         src="/images/Right Small Ridge.png"
@@ -111,7 +109,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax r-branch"
-        data-speedy="0.22"
+        data-speedy="0.28"
         src="/images/Right Branch.png"
       />
       <Image
@@ -119,8 +117,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax l-branch"
-        data-speedx="0.17"
-        data-speedy="0.22"
+        data-speedy="0.25"
         data-speedz="0.0"
         src="/images/Left Branch.png"
         data-distance="3100"
@@ -130,7 +127,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax l-small-ridge"
-        data-speedx="0.22"
+        data-speedx="0.0"
         data-speedy="0.24"
         data-speedz="0.0"
         src="/images/Left Small Ridge.png"
@@ -149,7 +146,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax r-small-bush"
-        data-speedx="0.20"
+        data-speedx="0.09"
         data-speedy="0.22"
         data-speedz="0.0"
         src="/images/Right Small Bush.png"
@@ -160,7 +157,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax l-big-ridge"
-        data-speedx="0.18"
+        data-speedx="0.08"
         data-speedy="0.21"
         data-speedz="0.0"
         src="/images/Left Big Ridge.png"
@@ -171,7 +168,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax m-ridge"
-        data-speedx="0.15"
+        data-speedx="0.06"
         data-speedy="0.16"
         data-speedz="0.0"
         src="/images/Mid Ridge.png"
@@ -182,7 +179,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax small-bush"
-        data-speedx="0.13"
+        data-speedx="0.045"
         data-speedy="0.14"
         data-speedz="0.0"
         src="/images/Small Bush.png"
@@ -193,7 +190,7 @@ const Background = () => {
         height={621}
         width={991}
         className="parallax big-bush"
-        data-speedx="0.0"
+        data-speedx="0.0005"
         data-speedy="0.1"
         data-speedz="0.0"
         src="/images/Big Bush.png"

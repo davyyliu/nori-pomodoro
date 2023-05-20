@@ -2,14 +2,21 @@
 
 import { useCallback, useState } from "react";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import useSettingsModal from "@/app/hooks/useSettingsModal";
 
 interface SettingsButtonProps {
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   props?: [];
 }
 
 const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const settingsModal = useSettingsModal();
+
+  function toggleSettings() {
+    settingsModal.onOpen();
+    console.log("123");
+  }
 
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -17,7 +24,7 @@ const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
 
   return (
     <div
-      onClick={handleClick}
+      // onClick={onClick}
       className="
         relative
         hover:opacity-80
