@@ -161,13 +161,9 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     >
       <CircularProgressbarWithChildren
         value={progress}
-        // text={`0:53:21`}
-        // text={formatTime(hours, minutes, seconds)}
         strokeWidth={4}
         circleRatio={1}
-        // text={`${hours}:${minutes}:${seconds}`}
         maxValue={100}
-        // counterClockwise styles=
         styles={buildStyles({
           textColor: "#F0E6D4",
           pathColor: "#4E7563",

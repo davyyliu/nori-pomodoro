@@ -61,18 +61,17 @@ const SettingsModal = () => {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    toast.success("Time Tracked");
     setIsLoading(true);
 
     axios
       .post("/api/totalTime", data)
       .then(() => {
-        toast.success("Time Tracked");
-        router.refresh();
+        toast.success("Time Tracked!");
         settingsModal.onClose();
+        router.refresh();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error);
       });
   };
 

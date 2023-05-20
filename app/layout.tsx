@@ -8,6 +8,7 @@ import RegisterModal from "./components/modal/RegisterModal";
 import LoginModal from "./components/modal/LoginModal";
 import Home from "./page";
 import getCurrentUser from "./actions/getCurrentUser";
+import ToastProvider from "./providers/ToastProvider";
 
 export const metadata = {
   title: "Nori Pomodoro",
@@ -28,6 +29,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
+          <ToastProvider />
           <Navbar currentUser={currentUser} />
           <Background />
           <RegisterModal />

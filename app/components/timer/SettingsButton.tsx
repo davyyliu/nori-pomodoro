@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import useSettingsModal from "@/app/hooks/useSettingsModal";
 
@@ -24,7 +24,6 @@ const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
 
   return (
     <div
-      // onClick={onClick}
       className="
         relative
         hover:opacity-80
