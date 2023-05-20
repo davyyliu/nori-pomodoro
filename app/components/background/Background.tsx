@@ -36,11 +36,11 @@ const Background = () => {
   const [yValue, setYValue] = useState(0);
 
   const update = (cursorPosition: number) => {
-    const parallax_el = document.querySelectorAll(".parallax");
+    const parallax_el = document.querySelectorAll<HTMLElement>(".parallax");
 
     parallax_el.forEach((el) => {
-      let speedx = el.dataset.speedx;
-      let speedy = el.dataset.speedy;
+      let speedx = Number(el.dataset.speedx);
+      let speedy = Number(el.dataset.speedy);
 
       el.style.transform = `
       translateX(calc(-50% + ${-xValue * 0}px))

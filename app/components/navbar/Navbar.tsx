@@ -3,15 +3,16 @@
 import Container from "@/app/Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
+import { User } from "@prisma/client";
 
 interface NavbarProps {
-  currentUser?: any;
+  currentUser?: User | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className="fixed w-full bg-pink-300 bg-opacity-20 z-10 shadow-sm">
-      <div className="border-b border-black shadow-md">
+      <div className="border-b border-black shadow-lg">
         <Container>
           <div
             className="

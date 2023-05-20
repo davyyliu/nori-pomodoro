@@ -63,7 +63,8 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
   // const [value, setValue] = useState(0);
   const changeWidth = useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {
-      onChange(parseInt(e.target.value));
+      const inputValue = (e.target as HTMLInputElement).value;
+      onChange(parseInt(inputValue));
     },
     [value, onChange]
   );
@@ -84,7 +85,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
         min={min}
         max={max}
         step={step}
-        onChange={changeWidth}
+        onChange={changeWidth as any}
       />
       <div className=" flex-row text-l font-semibold text-neutral-600 text-end">
         {value} {title}
