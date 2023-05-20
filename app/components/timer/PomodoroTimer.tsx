@@ -6,7 +6,9 @@ import PlayPauseButton from "./PlayPauseButton";
 import { useCallback, useEffect, useState } from "react";
 import ResetButton from "./ResetButton";
 import SettingsButton from "./SettingsButton";
-import Container from "@/app/Container";
+import useSettingsModal from "@/app/hooks/useSettingsModal";
+import toast from "react-hot-toast";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface PomodoroTimerProps {
   onClick: () => void;
@@ -21,6 +23,12 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
   const [minutes, setMinutes] = useState(mins);
   const [seconds, setSeconds] = useState(secs);
   const [isRunning, SetIsRunning] = useState(false);
+  const settingsModal = useSettingsModal();
+
+  function toggleSettings() {
+    console.log("abc1");
+    settingsModal.onOpen();
+  }
 
   function formatTime(hrs: number, mins: number, secs: number): string {
     const formattedHours = hrs.toString().padStart(2, "0");
@@ -41,6 +49,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
       countdown = setInterval(() => {
         if (hours === 0 && minutes === 0 && seconds === 0) {
           SetIsRunning(false);
+          console.log("Complete");
         } else {
           setSeconds(seconds - 1);
 
@@ -79,7 +88,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
   const handleSettings = () => {};
 
   return (
-    <div className="timer w-full items-center border px-auto">
+    <div className="timer w-full items-center px-auto">
       <CircularProgressbar
         value={progress}
         // text={`0:53:21`}
@@ -91,35 +100,35 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({ hrs, mins, secs }) => {
         // counterClockwise
 
         styles={buildStyles({
-          textColor: "#fff",
+          textColor: "#F0E6D4",
           pathColor: "#4E7563",
           trailColor: "#F0E6D4",
-          textSize: 20,
+          textSize: 21,
           pathTransitionDuration: 1.05,
         })}
       />
       <div
         className="
         items-center 
-        border
         relative 
         w-full
         p-10
         flex
         flex-row
-        justify-around
-        right-11
+        justify-center
+        right-10
+        
         "
       >
-        <Container>
-          <ResetButton onClick={handleReset} />
-        </Container>
-        <Container>
-          <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
-        </Container>
-        <Container>
-          <SettingsButton onClick={handleSettings} />
-        </Container>
+        <div className="flex justify-center">
+          <div className="flex space-x-24">
+            <ResetButton onClick={handleReset} />
+
+            <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
+
+            <SettingsButton onClick={toggleSettings} />
+          </div>
+        </div>
       </div>
     </div>
   );

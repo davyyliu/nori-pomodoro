@@ -60,7 +60,7 @@ main {
 } */
 
 .timer {
-  z-index: 99;
+  z-index: 49;
   position: absolute;
   width: 16%;
   top: calc(21%);
@@ -69,7 +69,7 @@ main {
 }
 
 .playbtn {
-  z-index: 99;
+  z-index: 49;
   position: absolute;
   width: 16%;
   top: calc(21%);
