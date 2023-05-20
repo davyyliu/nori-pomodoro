@@ -1,13 +1,11 @@
 // Home Taskbar
 
 export const dynamic = "force-dynamic";
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
 import getTime from "@/app/actions/getTime";
 import PomodoroTimer from "./components/timer/PomodoroTimer";
 
 const Home = async () => {
-  const currentUser = await getCurrentUser();
   const time = await getTime();
 
   return (

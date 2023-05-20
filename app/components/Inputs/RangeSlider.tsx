@@ -1,7 +1,7 @@
 "use client";
 
 import Slider from "@mui/material/Slider";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { styled } from "@mui/material/styles";
 
 const PrettoSlider = styled(Slider)({
@@ -60,7 +60,6 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
   min,
   max,
 }) => {
-  // const [value, setValue] = useState(0);
   const changeWidth = useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {
       const inputValue = (e.target as HTMLInputElement).value;

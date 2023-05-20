@@ -1,34 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import gsap from "gsap";
 import { useEffect, useState } from "react";
-
-// const parallax_el = document.querySelectorAll(".parallax");
-
-// let xValue = 0;
-// let yValue = 0;
-
-// function update(cursorPosition) {
-//   parallax_el.forEach((el) => {
-//     let speedx = el.dataset.speedx;
-//     let speedy = el.dataset.speedy;
-
-//     el.style.transform = `
-//     translateX(calc(-50% + ${-xValue * 0}px))
-//     translateY(calc(-50% + ${yValue * speedy}px))
-//     `;
-//   });
-// }
-
-// update(1);
-
-// window.addEventListener("mousemove", (e) => {
-//   xValue = e.clientX - window.innerWidth / 2;
-//   yValue = e.clientY - window.innerHeight / 2;
-
-//   update(e.clientX);
-// });
 
 const Background = () => {
   const [maxHeight, setMaxHeight] = useState<number>(0);
@@ -72,7 +45,7 @@ const Background = () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
 
   useEffect(() => {
     update(0); // Call the update function once to initialize the parallax effect
