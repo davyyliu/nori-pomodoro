@@ -11,6 +11,7 @@ import axios from "axios";
 import RegisterModal from "./components/modal/RegisterModal";
 import LoginModal from "./components/modal/LoginModal";
 import useSettingsModal from "./hooks/useSettingsModal";
+import Home from "./page";
 
 export const metadata = {
   title: "Nori Pomodoro",
@@ -34,8 +35,8 @@ export default function RootLayout({
           <Background />
           <RegisterModal />
           <LoginModal />
-          <PomodoroTimer hrs={0} mins={0} secs={5} />
           <SettingsModal />
+          <Home />
           {/* <Modal isOpen /> */}
         </ClientOnly>
         {/* <div className="pb-20 pt-28">{children} TEST</div> */}

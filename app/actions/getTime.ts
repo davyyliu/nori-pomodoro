@@ -1,21 +1,21 @@
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "./getCurrentUser";
 
-export interface TimeParams {
-  userId: string;
-}
+// export interface TimeParams {
+//   userId: string;
+// }
 
-export default async function getTime(params: TimeParams) {
+export default async function getTime() {
   try {
-    const currentUser = await getCurrentUser();
+    // const currentUser = await getCurrentUser();
 
-    if (!currentUser) {
-      return [];
-    }
-    const { userId } = params;
+    // if (!currentUser) {
+    //   return [];
+    // }
+    // const { userId } = params;
 
     const timeSpecs = await prisma.pomodoroHistory.findFirst({
-      where: { userId },
+      where: {},
       orderBy: { createdAt: "desc" },
     });
 
