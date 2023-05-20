@@ -35,8 +35,9 @@ export default async function RootLayout({
           <RegisterModal />
           <LoginModal />
           <SettingsModal />
-          <Home />
+          {/* <Home /> */}
         </ClientOnly>
+        <div className="overflow-hidden">{children}</div>
       </body>
     </html>
   );
