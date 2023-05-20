@@ -1,24 +1,29 @@
 // Home Taskbar
 
 export const dynamic = "force-dynamic";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import ClientOnly from "./components/ClientOnly";
+import getTime, { TimeParams } from "@/app/actions/getTime";
+import PomodoroTimer from "./components/timer/PomodoroTimer";
 
-const Home = () => {
+const Home = async () => {
+  const currentUser = await getCurrentUser();
+  const time = await getTime();
+
   return (
-    <div
-      className="
-            pt-24
-            grid 
-            grid-cols-1 
-            sm:grid-cols-2 
-            md:grid-cols-3 
-            lg:grid-cols-4
-            xl:grid-cols-5
-            2xl:grid-cols-6
-            gap-8
-          "
-    >
-      Nori-Pomodoro
-    </div>
+    <ClientOnly>
+      <div className="overflow-hidden">
+        <PomodoroTimer
+          studyhrs={Number(time?.studyhours)}
+          studymins={Number(time?.studyminutes)}
+          studysecs={0}
+          breakhrs={Number(time?.breakhours)}
+          breakmins={Number(time?.breakminutes)}
+          breaksecs={0}
+          sess={Number(time?.sessions)}
+        />
+      </div>
+    </ClientOnly>
   );
 };
 
