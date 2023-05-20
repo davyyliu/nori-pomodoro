@@ -4,34 +4,50 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useEffect, useState } from "react";
 
-const parallax_el = document.querySelectorAll(".parallax");
+// const parallax_el = document.querySelectorAll(".parallax");
 
-let xValue = 0;
-let yValue = 0;
+// let xValue = 0;
+// let yValue = 0;
 
-function update(cursorPosition) {
-  parallax_el.forEach((el) => {
-    let speedx = el.dataset.speedx;
-    let speedy = el.dataset.speedy;
+// function update(cursorPosition) {
+//   parallax_el.forEach((el) => {
+//     let speedx = el.dataset.speedx;
+//     let speedy = el.dataset.speedy;
 
-    el.style.transform = `
-    translateX(calc(-50% + ${-xValue * 0}px))
-    translateY(calc(-50% + ${yValue * speedy}px))
-    `;
-  });
-}
+//     el.style.transform = `
+//     translateX(calc(-50% + ${-xValue * 0}px))
+//     translateY(calc(-50% + ${yValue * speedy}px))
+//     `;
+//   });
+// }
 
-update(1);
+// update(1);
 
-window.addEventListener("mousemove", (e) => {
-  xValue = e.clientX - window.innerWidth / 2;
-  yValue = e.clientY - window.innerHeight / 2;
+// window.addEventListener("mousemove", (e) => {
+//   xValue = e.clientX - window.innerWidth / 2;
+//   yValue = e.clientY - window.innerHeight / 2;
 
-  update(e.clientX);
-});
+//   update(e.clientX);
+// });
 
 const Background = () => {
   const [maxHeight, setMaxHeight] = useState<number>(0);
+  const [xValue, setXValue] = useState(0);
+  const [yValue, setYValue] = useState(0);
+
+  const update = (cursorPosition: number) => {
+    const parallax_el = document.querySelectorAll(".parallax");
+
+    parallax_el.forEach((el) => {
+      let speedx = el.dataset.speedx;
+      let speedy = el.dataset.speedy;
+
+      el.style.transform = `
+      translateX(calc(-50% + ${-xValue * 0}px))
+      translateY(calc(-50% + ${yValue * speedy}px))
+      `;
+    });
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,14 +58,25 @@ const Background = () => {
       );
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      setXValue(e.clientX - window.innerWidth / 2);
+      setYValue(e.clientY - window.innerHeight / 2);
+    };
+
     handleResize();
 
     window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, []); // Empty dependency array to run the effect only once
+
+  useEffect(() => {
+    update(0); // Call the update function once to initialize the parallax effect
+  }, [xValue, yValue]); // Rerun the effect whenever xValue or yValue changes
 
   return (
     <main style={{ maxHeight: `${maxHeight}px` }}>
@@ -60,6 +87,7 @@ const Background = () => {
         width={1920}
         className="parallax backdrop"
         data-speedy="0.31"
+        // data-speedx="0.3"
         data-speedz="0"
         data-distance="-200"
         src="/images/Backdrop v2.png"
@@ -82,16 +110,6 @@ const Background = () => {
         data-speedz="0"
         src="/images/Right Big Ridge.png"
         data-distance="1100"
-      />
-      <Image
-        alt="template"
-        height={621}
-        width={991}
-        className=" pomodoro"
-        data-speedy="0.3"
-        data-speedz="0"
-        src="/images/Pomodoro.png"
-        data-distance="1400"
       />
       <Image
         alt="template"

@@ -4,7 +4,11 @@ import Container from "@/app/Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: any;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className="fixed w-full bg-pink-300 bg-opacity-20 z-10 shadow-sm">
       <div className="border-b border-black shadow-md">
@@ -21,7 +25,7 @@ const Navbar = () => {
                 "
           >
             <Logo />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>{" "}
         </Container>
       </div>

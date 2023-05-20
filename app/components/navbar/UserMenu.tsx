@@ -6,8 +6,14 @@ import { AiOutlineMenu } from "react-icons/ai";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import Avatar from "../Avatar";
+import { signOut } from "next-auth/react";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: any;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const registalModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -47,6 +53,9 @@ const UserMenu = () => {
         transition"
         >
           <AiOutlineMenu color="black" />
+          <div className="hidden md:block">
+            <Avatar src={currentUser?.image} />
+          </div>
         </div>
       </div>
 
@@ -65,10 +74,16 @@ const UserMenu = () => {
         text-sm"
         >
           <div className="flex flex-col cursor-pointer">
-            <>
-              <MenuItem onClick={toggleMenuLogIn} label="Login" />
-              <MenuItem onClick={toggleMenuSignUp} label="Sign Up" />
-            </>
+            {currentUser ? (
+              <>
+                <MenuItem onClick={() => signOut()} label="Logout" />
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={toggleMenuLogIn} label="Login" />
+                <MenuItem onClick={toggleMenuSignUp} label="Sign Up" />
+              </>
+            )}
           </div>
         </div>
       )}
