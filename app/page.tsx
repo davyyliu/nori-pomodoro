@@ -3,7 +3,7 @@
 export const dynamic = "force-dynamic";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
-import getTime, { TimeParams } from "@/app/actions/getTime";
+import getTime from "@/app/actions/getTime";
 import PomodoroTimer from "./components/timer/PomodoroTimer";
 
 const Home = async () => {
@@ -16,10 +16,10 @@ const Home = async () => {
         <PomodoroTimer
           studyhrs={Number(time?.studyhours)}
           studymins={Number(time?.studyminutes)}
-          studysecs={0}
+          studysecs={2}
           breakhrs={Number(time?.breakhours)}
           breakmins={Number(time?.breakminutes)}
-          breaksecs={0}
+          breaksecs={2}
           sess={Number(time?.sessions)}
         />
       </div>

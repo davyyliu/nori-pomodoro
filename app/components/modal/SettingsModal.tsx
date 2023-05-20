@@ -1,23 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Heading from "../Heading";
 import Modal from "./Modal";
-import { Field, FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useSettingsModal from "../../hooks/useSettingsModal";
 import { useRouter } from "next/navigation";
-import Input from "../Inputs/Input";
 import RangeSlider from "../Inputs/RangeSlider";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-import PomodoroTimer from "../timer/PomodoroTimer";
 import toast from "react-hot-toast";
 
-interface SettingsModalProps {
-  pomodoroTime: number;
-}
-
-const SettingsModal: React.FC<SettingsModalProps> = ({ pomodoroTime }) => {
+const SettingsModal = () => {
   const {
     register,
     handleSubmit,
@@ -59,8 +53,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ pomodoroTime }) => {
         sessions
     );
   };
-
-  pomodoroTime = totalTime;
 
   function valuetext(value: number) {
     const hrS = Math.floor(value / 60);

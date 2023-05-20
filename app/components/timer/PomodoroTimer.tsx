@@ -1,22 +1,18 @@
 "use client";
 
 import {
-  CircularProgressbar,
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import PlayPauseButton from "./PlayPauseButton";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ResetButton from "./ResetButton";
 import SettingsButton from "./SettingsButton";
 import useSettingsModal from "@/app/hooks/useSettingsModal";
-import toast from "react-hot-toast";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import Container from "@/app/Container";
 
 interface PomodoroTimerProps {
-  onClick: () => void;
+  // onClick: () => void;
   studyhrs: number;
   studymins: number;
   studysecs: number;
@@ -46,7 +42,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   const settingsModal = useSettingsModal();
 
   function toggleSettings() {
-    console.log("abc1");
     settingsModal.onOpen();
   }
 
@@ -118,10 +113,12 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           }
         }, 1000);
       } else {
-        setProgress(0);
-        setHours(studyhrs);
-        setMinutes(studymins);
-        setSeconds(studysecs);
+        if (p == t) {
+          setProgress(0);
+          setHours(studyhrs);
+          setMinutes(studymins);
+          setSeconds(studysecs);
+        }
       }
     }
 
@@ -168,11 +165,14 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         })}
       >
         <div
-          className="
-        text-[#F0E6D4]
-        font-semibold 
+          className={`
+          ${sbType === "Study" ? "text-[#4E7563]" : ""}
+          ${sbType === "Complete!" ? "text-[#B5E4F6]" : ""}
+          ${sbType === "Break" ? "text-[#F0E6D4]" : ""}
+        drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+        font-bold 
         text-4xl
-        py-5"
+        py-5`}
         >
           {sbType}
         </div>
@@ -180,7 +180,8 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           className="
         text-[#F0E6D4]
         font-semibold 
-        text-6xl
+        text-7xl
+        drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
         p-auto
         "
         >
@@ -188,13 +189,15 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         </div>
         <div className="py-1"></div>
         <div
-          className="flex 
-      font-semibold 
-      text-4xl 
-      py-5
-      items-center 
-      text-[#F0E6D4]
-      justify-center"
+          className="
+          flex 
+          drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+          font-semibold 
+          text-4xl 
+          py-5
+          items-center 
+          text-[#F0E6D4]
+          justify-center"
         >
           {currSess}/{totalSess}
         </div>
@@ -213,7 +216,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         
         "
       >
-        <div className="flex grid-cols-3 p-5 justify-center">
+        <div className="flex grid-cols-3 p-5 items-center justify-center">
           {/* <div className="flex space-x-24"> */}
           <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
           {/* </div> */}
