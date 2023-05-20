@@ -1,9 +1,9 @@
 // Home Taskbar
 
 export const dynamic = "force-dynamic";
-import ClientOnly from "./components/ClientOnly";
 import getTime from "@/app/actions/getTime";
-import PomodoroTimer from "./components/timer/PomodoroTimer";
+import ClientOnly from "../components/ClientOnly";
+import PomodoroTimer from "../components/timer/PomodoroTimer";
 
 const Home = async () => {
   const time = await getTime();
