@@ -10,8 +10,14 @@ import { useRouter } from "next/navigation";
 import RangeSlider from "../Inputs/RangeSlider";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import toast from "react-hot-toast";
+import { SafeUser } from "@/app/types";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
-const SettingsModal = () => {
+interface SettingsProps {
+  currentUser?: SafeUser | null;
+}
+
+const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
   const {
     register,
     handleSubmit,
@@ -38,6 +44,7 @@ const SettingsModal = () => {
   const breakminutes = watch("breakminutes");
   const [totalTime, setTotalTime] = useState(0);
   const timeFormat = valuetext(totalTime);
+  const LoginModal = useLoginModal();
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -61,18 +68,26 @@ const SettingsModal = () => {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
+    console.log(currentUser);
 
-    axios
-      .post("/api/totalTime", data)
-      .then(() => {
-        toast.success("Time Tracked!");
-        settingsModal.onClose();
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
+    if (currentUser) {
+      setIsLoading(true);
+
+      axios
+        .post("/api/totalTime", data)
+        .then(() => {
+          toast.success("Time Tracked!");
+          settingsModal.onClose();
+          router.refresh();
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    } else {
+      toast.error("Please log in first!");
+      settingsModal.onClose();
+      LoginModal.onOpen();
+    }
   };
 
   const bodyContent = (

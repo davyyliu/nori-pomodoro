@@ -34,7 +34,7 @@ export default async function RootLayout({
           <Background />
           <RegisterModal />
           <LoginModal />
-          <SettingsModal />
+          <SettingsModal currentUser={currentUser} />
           {/* <Home /> */}
         </ClientOnly>
         <div className="overflow-hidden">{children}</div>
