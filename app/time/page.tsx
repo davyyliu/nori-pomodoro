@@ -5,7 +5,7 @@ import getTime from "@/app/actions/getTime";
 import ClientOnly from "../components/ClientOnly";
 import PomodoroTimer from "../components/timer/PomodoroTimer";
 
-const Home = async () => {
+const TimePg = async () => {
   const time = await getTime();
 
   return (
@@ -25,4 +25,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default TimePg;
