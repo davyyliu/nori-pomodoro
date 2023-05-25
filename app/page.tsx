@@ -6,11 +6,11 @@ import getTime from "@/app/actions/getTime";
 import PomodoroTimer from "./components/timer/PomodoroTimer";
 
 const Home = async () => {
-  // const time = await getTime();
+  const time = await getTime();
 
   return (
     <ClientOnly>
-      {/* <div className="overflow-hidden">
+      <div className="overflow-hidden">
         <PomodoroTimer
           studyhrs={Number(time?.studyhours)}
           studymins={Number(time?.studyminutes)}
@@ -20,7 +20,7 @@ const Home = async () => {
           breaksecs={0}
           sess={Number(time?.sessions)}
         />
-      </div> */}
+      </div>
     </ClientOnly>
   );
 };
