@@ -107,7 +107,7 @@ const LoginModal = () => {
         items-center 
         gap-2"
         >
-          <div>First time with Imnori ?</div>
+          <div>First time with Imnori?</div>
           <div
             onClick={toggle}
             className="
