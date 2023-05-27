@@ -12,13 +12,13 @@ const Home = async () => {
     <ClientOnly>
       <div className="overflow-hidden">
         <PomodoroTimer
-          studyhrs={Number(time?.studyhours)}
-          studymins={Number(time?.studyminutes)}
+          studyhrs={Number(time?.studyhours) || 0}
+          studymins={Number(time?.studyminutes) || 0}
           studysecs={0}
-          breakhrs={Number(time?.breakhours)}
-          breakmins={Number(time?.breakminutes)}
+          breakhrs={Number(time?.breakhours) || 0}
+          breakmins={Number(time?.breakminutes) || 0}
           breaksecs={0}
-          sess={Number(time?.sessions)}
+          sess={Number(time?.sessions) || 1}
         />
       </div>
     </ClientOnly>
