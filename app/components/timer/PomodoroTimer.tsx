@@ -55,6 +55,10 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   };
 
   function formatTime(hrs: number, mins: number, secs: number): string {
+    if (mins === 60) {
+      hrs = 1;
+      mins = 0;
+    }
     const formattedHours = String(hrs).padStart(2, "0");
     const formattedMinutes = String(mins).padStart(2, "0");
     const formattedSeconds = String(secs).padStart(2, "0");

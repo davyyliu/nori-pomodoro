@@ -77,6 +77,7 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
           toast.success("Time Tracked!");
           settingsModal.onClose();
           router.refresh();
+          window.location.reload();
         })
         .catch((error) => {
           toast.error(error);
