@@ -62,8 +62,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
 
-  let targetTime = formatTime(studyhrs, studymins, studysecs);
-
   useEffect(() => {
     let countdown: NodeJS.Timeout | null = null;
     const p = hours * 3600 + minutes * 60 + seconds;

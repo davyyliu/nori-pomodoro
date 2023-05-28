@@ -8,7 +8,7 @@ const Logo = () => {
 
   return (
     <Image
-      onClick={() => router.push("/time")}
+      onClick={() => router.push("/")}
       alt="Imnori"
       className="hidden md:block cursor-pointer"
       height="120"

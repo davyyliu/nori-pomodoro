@@ -68,8 +68,6 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(currentUser);
-
     if (currentUser) {
       setIsLoading(true);
 
