@@ -18,7 +18,7 @@ const Home = async () => {
           breakhrs={Array.isArray(time) ? 0 : Number(time?.breakhours) || 0}
           breakmins={Array.isArray(time) ? 0 : Number(time?.breakminutes) || 0}
           breaksecs={0}
-          sess={Array.isArray(time) ? 0 : Number(time?.sessions) || 0}
+          sess={Array.isArray(time) ? 0 : Number(time?.sessions) || 1}
         />
       </div>
     </ClientOnly>
