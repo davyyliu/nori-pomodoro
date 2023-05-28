@@ -10,18 +10,6 @@ interface SettingsButtonProps {
 }
 
 const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const settingsModal = useSettingsModal();
-
-  function toggleSettings() {
-    settingsModal.onOpen();
-    console.log("123");
-  }
-
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
-
   return (
     <div
       className="
