@@ -19,8 +19,8 @@ const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
       <button className="playbtn" {...props} onClick={onClick}>
         <AdjustmentsHorizontalIcon
           className="
-            xs:h-7
-            xs:w-7
+            xs:h-6
+            xs:w-6
             sm:h-2
             sm:w-2
             md:h-4
