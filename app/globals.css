@@ -22,6 +22,29 @@ main {
   overflow: hidden;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+.datetable {
+  text-align: left;
+}
+
 .backdrop {
   position: absolute;
   top: calc(57.8%);
@@ -66,6 +89,22 @@ main {
   top: calc(21%);
   left: calc(42.1%);
   pointer-events: auto;
+}
+
+.history {
+  z-index: 49;
+  position: absolute;
+  width: 95%;
+  height: 90%;
+  top: calc(7%);
+  left: calc(2.5%);
+  background-color: whitesmoke;
+  opacity: 87%;
+  border-radius: 20px;
+  outline-color: black;
+  outline-width: medium;
+  outline-style: dashed;
+  overflow-y: scroll;
 }
 
 .playbtn {
