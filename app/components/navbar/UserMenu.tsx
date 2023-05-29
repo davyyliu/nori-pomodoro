@@ -8,6 +8,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import Avatar from "../Avatar";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -17,6 +18,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const registalModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -32,6 +34,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     toggleOpen();
   }
 
+  function toggleHistory() {
+    router.push("/history");
+    toggleOpen();
+  }
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -76,6 +82,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
+                <MenuItem onClick={toggleHistory} label="History" />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>
             ) : (

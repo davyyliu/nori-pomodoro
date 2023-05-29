@@ -1,8 +1,8 @@
 "use client";
 
-import { PlayCircleIcon, PauseCircleIcon } from "@heroicons/react/24/outline";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 
-interface PlayPauseButtonProps {
+interface MoveButtonProps {
   onClick: () => void;
   clicked: boolean;
   props?: [];
@@ -10,7 +10,7 @@ interface PlayPauseButtonProps {
   width?: string;
 }
 
-const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
+const MoveButton: React.FC<MoveButtonProps> = ({
   props,
   clicked,
   onClick,
@@ -21,27 +21,28 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
     <div
       className="
         relative
-        hover:opacity-80
         transition
         cursor-pointer"
     >
       {clicked ? (
         <button className="playbtn" {...props} onClick={onClick}>
-          <PauseCircleIcon
+          <SparklesIcon
             className={`
             ${height ? `${height}` : "h-24"} 
             ${width ? `${width}` : "w-24"} 
-            stroke-width-1.5 stroke-[#F0E6D4] fill-none
+            stroke-width-2.5 stroke-[#ffff] fill-none 
+            drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
             z-50`}
           />
         </button>
       ) : (
         <button className="playbtn" {...props} onClick={onClick}>
-          <PlayCircleIcon
+          <SparklesIcon
             className={`
             ${height ? `${height}` : "h-24"} 
             ${width ? `${width}` : "w-24"} 
-          stroke-width-1.5 stroke-[#4E7563] fill-none
+          stroke-width-2.5 stroke-[#F0E6D4] fill-none opacity-80
+          drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
           z-50`}
           />
         </button>
@@ -50,4 +51,4 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
   );
 };
 
-export default PlayPauseButton;
+export default MoveButton;
