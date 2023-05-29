@@ -292,7 +292,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         -top-6
         right-5
         xs:top-6
-        xs:-right-12
+        xs:-right-14
         sm:top-3
         sm:-right-5
         md:top-4
@@ -313,7 +313,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         -top-6
         right-5
         xs:top-6
-        xs:right-9
+        xs:right-10
         sm:top-3
         sm:right-2
         md:top-4
