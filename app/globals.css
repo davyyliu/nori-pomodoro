@@ -51,7 +51,7 @@ tr:hover {
   left: calc(50%);
   min-height: 150%;
   width: 201.74%;
-  /* transform: translate(-48.83%, -89%); */
+  object-fit: cover;
   z-index: 1;
 }
 
@@ -72,15 +72,6 @@ tr:hover {
   top: calc(79.5%);
   left: calc(62%);
 }
-
-/* .pomodoro {
-  z-index: 99;
-  position: absolute;
-  width: 19%;
-  top: calc(20%);
-  left: calc(39.1%);
-  pointer-events: auto;
-} */
 
 .timer {
   z-index: 49;
@@ -200,6 +191,9 @@ tr:hover {
 }
 
 @media (max-width: 725px) {
+  td {
+    padding: 0px;
+  }
   .backdrop {
     width: initial;
     height: 100%;
@@ -215,11 +209,6 @@ tr:hover {
     width: initial;
     height: 60.78%;
   }
-
-  /* .pomodoro {
-    width: initial;
-    height: 13.78%;
-  } */
 
   .timer {
     width: initial;
@@ -274,6 +263,79 @@ tr:hover {
   .fog {
     width: initial;
     height: 40.78%;
+  }
+}
+
+@media (max-width: 400px) {
+  .backdrop {
+    width: initial;
+    height: 100%;
+    /* transform: translate(-48.83%, -89%); */
+  }
+  .bshadow {
+    position: absolute;
+    width: initial;
+    height: 100.78%;
+  }
+
+  .r-big-ridge {
+    width: 100%;
+    height: 95%;
+  }
+
+  .timer {
+    width: initial;
+    height: 13.78%;
+  }
+
+  .r-small-ridge {
+    width: 60%;
+    height: 60%;
+  }
+
+  .l-small-ridge {
+    width: 80%;
+    height: 90%;
+  }
+
+  .sun-rays {
+    width: initial;
+    height: 100%;
+  }
+
+  .r-branch {
+    width: initial;
+    height: 20.78%;
+  }
+
+  .l-big-ridge {
+    width: 100%;
+    height: 100%;
+  }
+
+  .l-branch {
+    width: initial;
+    height: 20.78%;
+  }
+
+  .m-ridge {
+    width: 100%;
+    height: 100.78%;
+  }
+
+  .small-bush {
+    width: 100%;
+    height: 60%;
+  }
+
+  .big-bush {
+    width: 100%;
+    height: 60%;
+  }
+
+  .fog {
+    width: 100%;
+    height: 100%;
   }
 }
 

@@ -64,9 +64,10 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
   function valuetext(value: number) {
     const hrS = Math.floor(value / 60);
     const minS = Math.round((value / 60 - hrS) * 60);
-    return `${hrS} Hours ${minS} Minutes`;
+    return `${hrS} ${hrS === 1 ? "Hour" : "Hours"} ${minS} ${
+      minS === 1 ? "Minute" : "Minutes"
+    }`;
   }
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (currentUser) {
       setIsLoading(true);
@@ -198,7 +199,6 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
       onClose={settingsModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
-      //   footer={footerContent}
     />
   );
 };
