@@ -286,7 +286,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         >
           <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
         </div>
-        {/* <div
+        <div
           className="
         grid
         relative
@@ -306,7 +306,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         2xl:-right-20"
         >
           <SettingsButton onClick={toggleSettings} />
-        </div> */}
+        </div>
         <div
           className="
         grid
