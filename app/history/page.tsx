@@ -1,16 +1,12 @@
 import EmptyState from "../components/EmptyState";
 import ClientOnly from "../components/ClientOnly";
-import getCurrentUser from "../actions/getCurrentUser";
 import getHistory from "../actions/getHistory";
-import HistoryClient from "./HistoryClient";
-import Container from "../Container";
 import Heading from "../components/Heading";
 
 const HistoryPage = async () => {
   const history = await getHistory();
-  const currentUser = await getCurrentUser();
 
-  function valuetext(value: number) {
+  function valuetext(value: any) {
     const hrS = Math.floor(value / 60);
     const minS = Math.round((value / 60 - hrS) * 60);
     return `${hrS} Hours ${minS} Minutes`;
@@ -62,11 +58,13 @@ const HistoryPage = async () => {
                   <td>{hist.breakminutes}</td>
                   <td>{hist.sessions}</td>
                   <td>
-                    {(hist.studyhours * 60 +
-                      hist.studyminutes +
-                      hist.breakhours * 60 +
-                      hist.breakminutes) *
-                      hist.sessions}
+                    {valuetext(
+                      (hist.studyhours * 60 +
+                        hist.studyminutes +
+                        hist.breakhours * 60 +
+                        hist.breakminutes) *
+                        hist.sessions
+                    )}
                   </td>
                 </tr>
               ))}
