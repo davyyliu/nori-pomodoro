@@ -264,19 +264,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         </div>
       </CircularProgressbarWithChildren>
 
-      <div
-        className="
-        items-center 
-        relative 
-        w-full
-        
-        flex
-        flex-row
-        justify-center
-        right-10
-        
-        "
-      >
+      <div>
         <div
           className="
         grid
@@ -284,22 +272,20 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         -top-6
         right-5
         xs:top-2
-        xs:-right-0
+        xs:right-4
         sm:top-2
-        sm:-right-8
+        sm:right-0
         md:top-2
-        md:-right-6
+        md:right-1
         lg:top-2
-        lg:-right-4
+        lg:right-2
         xl:top-1
-        xl:-right-2
+        xl:right-4
         2xl:top-4
-        2xl:right-2"
+        2xl:right-6"
         >
           <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
         </div>
-      </div>
-      <div>
         <div
           className="
         grid

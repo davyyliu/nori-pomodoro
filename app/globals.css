@@ -99,7 +99,7 @@ tr:hover {
 }
 
 .playbtn {
-  z-index: 99;
+  z-index: 49;
   position: absolute;
   width: 16%;
   top: calc(21%);
@@ -267,6 +267,9 @@ tr:hover {
 }
 
 @media (max-width: 400px) {
+  .playbtn {
+    z-index: 999;
+  }
   .backdrop {
     width: initial;
     height: 100%;
