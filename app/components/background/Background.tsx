@@ -2,24 +2,57 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import SoundButton from "../timer/SoundButton";
+import MoveButton from "./MoveButton";
 
 const Background = () => {
   const [maxHeight, setMaxHeight] = useState<number>(0);
   const [xValue, setXValue] = useState(0);
   const [yValue, setYValue] = useState(0);
+  const [isMoving, setIsMoving] = useState(true);
+  const [hasSound, setHasSound] = useState(true);
 
   const update = (cursorPosition: number) => {
     const parallax_el = document.querySelectorAll<HTMLElement>(".parallax");
 
     parallax_el.forEach((el) => {
-      let speedx = Number(el.dataset.speedx);
-      let speedy = Number(el.dataset.speedy);
+      let speedx = 0;
+      let speedy = 0;
+      if (isMoving) {
+        speedx = Number(el.dataset.speedx);
+        speedy = Number(el.dataset.speedy);
+      }
 
       el.style.transform = `
       translateX(calc(-50% + ${-xValue * 0}px))
       translateY(calc(-50% + ${yValue * speedy}px))
       `;
     });
+  };
+
+  const handleMovement = () => {
+    setIsMoving(!isMoving);
+  };
+
+  function mutePage(): void {
+    const audioContext: AudioContext = new AudioContext();
+    const gainNode: GainNode = audioContext.createGain();
+    gainNode.gain.value = 0; // Set the gain value to 0 to mute the audio
+
+    const audioElements: NodeListOf<HTMLAudioElement> =
+      document.querySelectorAll("audio");
+
+    // Connect the gain node to each audio element
+    audioElements.forEach((audioElement: HTMLAudioElement) => {
+      const source = audioContext.createMediaElementSource(audioElement);
+      source.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+    });
+  }
+
+  const handleSound = () => {
+    setHasSound(!hasSound);
+    mutePage();
   };
 
   useEffect(() => {
@@ -53,6 +86,29 @@ const Background = () => {
 
   return (
     <main style={{ maxHeight: `${maxHeight}px` }}>
+      <div
+        className="
+        grid
+        absolute
+        top-0
+        right-11
+        h-12
+        w-12
+        p-2
+        grid-cols-1
+        gap-x-9
+        
+      "
+      >
+        <div>
+          <MoveButton
+            onClick={handleMovement}
+            clicked={isMoving}
+            height="h-8"
+            width="w-8"
+          />
+        </div>
+      </div>
       <div className="vignette"></div>
       <Image
         alt="template"

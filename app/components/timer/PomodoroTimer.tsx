@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import ResetButton from "./ResetButton";
 import SettingsButton from "./SettingsButton";
 import useSettingsModal from "@/app/hooks/useSettingsModal";
+import SoundButton from "./SoundButton";
 
 interface PomodoroTimerProps {
   studyhrs: number;
@@ -38,18 +39,23 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   const [currSess, setCurrSess] = useState(1);
   const [totalSess, setTotalSess] = useState(sess);
   const [sbType, setSBType] = useState<String>("Study");
+  const [hasSound, setHasSound] = useState(true);
   const settingsModal = useSettingsModal();
 
   function toggleSettings() {
     settingsModal.onOpen();
   }
 
-  const playSound = () => {
-    const audio = new Audio(
-      "/sounds/Tibetan Singing Bowl Sounds WAV TRIMMED.wav"
-    );
+  const audio = new Audio(
+    "/sounds/Tibetan Singing Bowl Sounds WAV TRIMMED.wav"
+  );
 
-    audio.volume = 0.25;
+  const playSound = () => {
+    if (hasSound) {
+      audio.volume = 0.25;
+    } else {
+      audio.volume = 0;
+    }
 
     audio.play();
   };
@@ -152,6 +158,10 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     setCurrSess(1);
   };
 
+  const handleSound = () => {
+    setHasSound(!hasSound);
+  };
+
   return (
     <div
       className="
@@ -174,6 +184,20 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           pathTransitionDuration: 1.05,
         })}
       >
+        <div
+          className="
+        grid
+        relative
+        -top-6
+        right-5"
+        >
+          <SoundButton
+            onClick={handleSound}
+            clicked={hasSound}
+            height="h-8"
+            width="w-8"
+          />
+        </div>
         <div
           className={`
           ${sbType === "Study" ? "text-[#4E7563]" : ""}
@@ -204,7 +228,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
           font-semibold 
           text-4xl 
-          py-5
+          py-2
           items-center 
           text-[#F0E6D4]
           justify-center"
