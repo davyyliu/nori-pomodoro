@@ -99,7 +99,7 @@ tr:hover {
 }
 
 .playbtn {
-  z-index: 49;
+  z-index: 99;
   position: absolute;
   width: 16%;
   top: calc(21%);
