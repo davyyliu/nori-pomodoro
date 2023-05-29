@@ -1,6 +1,10 @@
 "use client";
 
-import { PlayCircleIcon, PauseCircleIcon } from "@heroicons/react/24/outline";
+import {
+  PlayCircleIcon,
+  PauseCircleIcon,
+  AdjustmentsHorizontalIcon,
+} from "@heroicons/react/24/outline";
 
 interface PlayPauseButtonProps {
   onClick: () => void;
@@ -27,7 +31,7 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
     >
       {clicked ? (
         <button className="playbtn" {...props} onClick={onClick}>
-          <PauseCircleIcon
+          <AdjustmentsHorizontalIcon
             className={`
             xs:h-20
             xs:w-20
@@ -47,7 +51,7 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({
         </button>
       ) : (
         <button className="playbtn" {...props} onClick={onClick}>
-          <PlayCircleIcon
+          <AdjustmentsHorizontalIcon
             className={`
             xs:h-20
             xs:w-20
