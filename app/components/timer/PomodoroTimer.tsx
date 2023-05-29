@@ -263,10 +263,8 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           {currSess}/{totalSess}
         </div>
       </CircularProgressbarWithChildren>
-
-      <div>
-        <div
-          className="
+      <div
+        className="
         grid
         relative
         -top-6
@@ -282,12 +280,15 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         xl:top-1
         xl:right-4
         2xl:top-4
-        2xl:right-6"
-        >
-          <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
-        </div>
+        2xl:right-6
+        border"
+      >
+        <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
+      </div>
+      <div>
         <div
           className="
+          border
         grid
         relative
         -top-6
@@ -309,6 +310,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         </div>
         <div
           className="
+          border
         grid
         relative
         -top-6
