@@ -26,7 +26,7 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser();
   return (
-    <html lang="en">
+    <html lang="en" className="bg-black">
       <body className={font.className}>
         <ClientOnly>
           <ToastProvider />
@@ -35,7 +35,6 @@ export default async function RootLayout({
           <RegisterModal />
           <LoginModal />
           <SettingsModal currentUser={currentUser} />
-          {/* <Home /> */}
         </ClientOnly>
         <div className="overflow-hidden">{children}</div>
       </body>

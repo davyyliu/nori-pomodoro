@@ -166,10 +166,10 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     <div
       className="
       timer 
-      w-full 
-      items-center 
-      px-auto 
-      drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+      drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+      xs:left-12
+      xs:top-60
+      "
     >
       <CircularProgressbarWithChildren
         value={progress}
@@ -189,32 +189,52 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         grid
         relative
         -top-6
-        right-5"
+        right-5
+        xs:-top-10
+        sm:-top-2
+        sm:right-2
+        md:-top-2
+        md:right-2
+        lg:-top-5
+        lg:right-3
+        xl:-top-6
+        xl:right-3
+        2xl:-top-10
+        2xl:right-5
+        "
         >
-          <SoundButton
-            onClick={handleSound}
-            clicked={hasSound}
-            height="h-8"
-            width="w-8"
-          />
+          <SoundButton onClick={handleSound} clicked={hasSound} />
         </div>
         <div
           className={`
+          pomoSbtype
           ${sbType === "Study" ? "text-[#4E7563]" : ""}
           ${sbType === "Complete!" ? "text-[#B5E4F6]" : ""}
           ${sbType === "Break" ? "text-[#F0E6D4]" : ""}
         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
         font-bold 
-        text-5xl
-        py-5`}
+        py-auto
+        xs:text-4xl
+        sm:text-lg
+        md:text-xl
+        lg:text-2xl
+        xl:text-3xl
+        2xl:text-5xl
+        `}
         >
           {sbType}
         </div>
         <div
           className="
+          pomoTime
         text-[#F0E6D4]
         font-semibold 
-        text-7xl
+        xs:text-5xl
+        sm:text-xl
+        md:text-2xl
+        lg:text-3xl
+        xl:text-4xl
+        2xl:text-6xl
         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
         p-auto
         "
@@ -224,11 +244,18 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         <div className="py-1"></div>
         <div
           className="
+          pomoSess
           flex 
           drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
           font-semibold 
           text-4xl 
-          py-2
+        py-auto
+        xs:text-4xl
+        sm:text-lg
+        md:text-xl
+        lg:text-2xl
+        xl:text-3xl
+        2xl:text-5xl
           items-center 
           text-[#F0E6D4]
           justify-center"
@@ -250,22 +277,71 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         
         "
       >
-        <div className="flex grid-cols-3 p-5 items-center justify-center">
+        <div
+          className="
+        grid
+        relative
+        -top-6
+        right-5
+        xs:top-2
+        xs:-right-0
+        sm:top-2
+        sm:-right-8
+        md:top-2
+        md:-right-6
+        lg:top-2
+        lg:-right-4
+        xl:top-1
+        xl:-right-2
+        2xl:top-4
+        2xl:right-2"
+        >
           <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
         </div>
       </div>
-      <div className="grid grid-cols-2 items-center">
+      <div>
         <div
           className="
-          max-w-[2520px]
-          mx-auto
-          xl:px-20
-          md:px-10
-          sm:px-2
-          px-4"
-        ></div>
-        <SettingsButton onClick={toggleSettings} />
-        <ResetButton onClick={handleReset} />
+        grid
+        relative
+        -top-6
+        right-5
+        xs:top-6
+        xs:-right-16
+        sm:top-3
+        sm:-right-5
+        md:top-4
+        md:-right-7
+        lg:top-5
+        lg:-right-10
+        xl:top-5
+        xl:-right-12
+        2xl:top-9
+        2xl:-right-20"
+        >
+          <SettingsButton onClick={toggleSettings} />
+        </div>
+        <div
+          className="
+        grid
+        relative
+        -top-6
+        right-5
+        xs:top-6
+        xs:right-14
+        sm:top-3
+        sm:right-2
+        md:top-4
+        md:right-6
+        lg:top-5
+        lg:right-8
+        xl:top-4
+        xl:right-12
+        2xl:top-8
+        2xl:right-20"
+        >
+          <ResetButton onClick={handleReset} />
+        </div>
       </div>
     </div>
   );

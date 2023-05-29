@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-import useSettingsModal from "@/app/hooks/useSettingsModal";
 
 interface SettingsButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -19,7 +17,24 @@ const SettingsButton: React.FC<SettingsButtonProps> = ({ props, onClick }) => {
         cursor-pointer"
     >
       <button className="playbtn" {...props} onClick={onClick}>
-        <AdjustmentsHorizontalIcon className="h-12 w-12 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
+        <AdjustmentsHorizontalIcon
+          className="
+            xs:h-10
+            xs:w-10
+            sm:h-2
+            sm:w-2
+            md:h-4
+            md:w-4
+            lg:h-6
+            lg:w-6
+            xl:h-8
+            xl:w-8
+            2xl:h-12
+            2xl:w-12
+        stroke-width-1.5 
+        stroke-[#F0E6D4] 
+        fill-none"
+        />
       </button>
     </div>
   );

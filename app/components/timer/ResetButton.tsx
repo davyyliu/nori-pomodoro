@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 
 interface ResetButtonProps {
@@ -25,7 +25,24 @@ const ResetButton: React.FC<ResetButtonProps> = ({ props, onClick }) => {
         cursor-pointer"
     >
       <button className="playbtn" {...props} onClick={onClick}>
-        <ArrowUturnLeftIcon className="h-12 w-12 stroke-width-1.5 stroke-[#F0E6D4] fill-none" />
+        <ArrowUturnLeftIcon
+          className="
+            xs:h-10
+            xs:w-10
+            sm:h-2
+            sm:w-2
+            md:h-4
+            md:w-4
+            lg:h-6
+            lg:w-6
+            xl:h-8
+            xl:w-8
+            2xl:h-12
+            2xl:w-12
+        stroke-width-1.5 
+        stroke-[#F0E6D4] 
+        fill-none"
+        />
       </button>
     </div>
   );

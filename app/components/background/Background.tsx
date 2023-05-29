@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import SoundButton from "../timer/SoundButton";
 import MoveButton from "./MoveButton";
 
 const Background = () => {
@@ -60,7 +59,7 @@ const Background = () => {
       setMaxHeight(
         window.innerWidth >= 725
           ? window.innerWidth * 0.6
-          : window.innerWidth * 1.6
+          : window.innerWidth * 6
       );
     };
 
@@ -85,7 +84,18 @@ const Background = () => {
   }, [xValue, yValue]); // Rerun the effect whenever xValue or yValue changes
 
   return (
-    <main style={{ maxHeight: `${maxHeight}px` }}>
+    <main
+      style={{ maxHeight: `${maxHeight}px` }}
+      className="
+            xs:max-h-full
+            xs:max-w-screen
+            xs:items-center
+            sm:max-h-full
+            md:max-h-full
+            lg:max-h-full
+            xl:max-h-full
+            "
+    >
       <div
         className="
         grid
@@ -97,7 +107,18 @@ const Background = () => {
         p-2
         grid-cols-1
         gap-x-9
-        
+        xs:top-0
+        xs:right-40
+        sm:top-0
+        sm:right-20
+        md:top-0
+        md:right-2
+        lg:top-0
+        lg:right-3
+        xl:top-0
+        xl:right-9
+        2xl:top-0
+        2xl:right-7
       "
       >
         <div>
@@ -109,7 +130,6 @@ const Background = () => {
           />
         </div>
       </div>
-      <div className="vignette"></div>
       <Image
         alt="template"
         height={1200}
