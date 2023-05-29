@@ -27,8 +27,8 @@ const ResetButton: React.FC<ResetButtonProps> = ({ props, onClick }) => {
       <button className="playbtn" {...props} onClick={onClick}>
         <ArrowUturnLeftIcon
           className="
-            xs:h-10
-            xs:w-10
+            xs:h-7
+            xs:w-7
             sm:h-2
             sm:w-2
             md:h-4

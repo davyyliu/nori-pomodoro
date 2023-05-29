@@ -269,8 +269,8 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         relative
         -top-6
         right-5
-        xs:top-2
-        xs:right-4
+        xs:top-3
+        xs:right-2
         sm:top-2
         sm:right-0
         md:top-2
@@ -280,15 +280,13 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         xl:top-1
         xl:right-4
         2xl:top-4
-        2xl:right-6
-        border"
+        2xl:right-6"
       >
         <PlayPauseButton onClick={handleStartStop} clicked={isRunning} />
       </div>
       <div>
         <div
           className="
-          border
         grid
         relative
         -top-6
@@ -310,7 +308,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         </div>
         <div
           className="
-          border
         grid
         relative
         -top-6
