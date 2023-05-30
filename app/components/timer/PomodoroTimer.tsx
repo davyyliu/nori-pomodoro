@@ -88,14 +88,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     }
     setProgress(100 - (progress * 100) / total);
 
-    if (
-      sbType === "Study" &&
-      progress === 0 &&
-      currSess === totalSess &&
-      currSess === 1
-    ) {
-      setIsRunning(false);
-    } else if (sbType === "Complete!") {
+    if (sbType === "Complete!") {
       setIsRunning(false);
     } else {
       countdown = setInterval(() => {
