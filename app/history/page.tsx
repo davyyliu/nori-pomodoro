@@ -34,12 +34,22 @@ const HistoryPage = async () => {
 
   if (history.length === 0) {
     return (
-      <ClientOnly>
-        <EmptyState
-          title="No history found"
-          subtitle="Start using the Pomodoro timer to have history"
-        />
-      </ClientOnly>
+      <div
+        className="
+      history 
+      w-full 
+      items-center 
+      px-auto
+      drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+      >
+        <ClientOnly>
+          <EmptyState
+            title="No history found"
+            subtitle="Start using the Pomodoro timer to have history"
+            showReset
+          />
+        </ClientOnly>
+      </div>
     );
   }
   return (

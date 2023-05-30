@@ -75,7 +75,7 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
       axios
         .post("/api/totalTime", data)
         .then(() => {
-          toast.success("Time Tracked!");
+          toast.success("Pomodoro Ready!");
           settingsModal.onClose();
           router.refresh();
           window.location.reload();
