@@ -11,6 +11,7 @@ import ResetButton from "./ResetButton";
 import SettingsButton from "./SettingsButton";
 import useSettingsModal from "@/app/hooks/useSettingsModal";
 import SoundButton from "./SoundButton";
+import toast from "react-hot-toast";
 
 interface PomodoroTimerProps {
   studyhrs: number;
@@ -74,69 +75,67 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
   useEffect(() => {
     let countdown: NodeJS.Timeout | null = null;
-    const p = hours * 3600 + minutes * 60 + seconds;
-    const t = studyhrs * 3600 + studymins * 60 + studysecs;
-    setProgress(100 - (p * 100) / t);
+    let progress: number;
+    let total: number;
+
+    progress = hours * 3600 + minutes * 60 + seconds;
+    if (sbType === "Study") {
+      total = studyhrs * 3600 + studymins * 60 + studysecs;
+    } else if (sbType === "Break") {
+      total = breakhrs * 3600 + breakmins * 60 + breaksecs;
+    } else {
+      total = progress;
+    }
+    setProgress(100 - (progress * 100) / total);
+
     if (
-      sbType === "Break" &&
+      sbType === "Study" &&
+      progress === 0 &&
       currSess === totalSess &&
-      hours === 0 &&
-      minutes === 0 &&
-      seconds === 0
+      currSess === 1
     ) {
       setIsRunning(false);
-      setSBType("Complete!");
-      playSound();
+    } else if (sbType === "Complete!") {
+      setIsRunning(false);
     } else {
-      if (isRunning && sbType != "Complete!") {
-        countdown = setInterval(() => {
-          if (hours === 0 && minutes === 0 && seconds === 0) {
-            setIsRunning(false);
-          }
-          if (hours === 0 && minutes === 0 && seconds === 0) {
-            setIsRunning(false);
-            setProgress(0);
-            if (sbType === "Study") {
-              setSBType("Break");
-              setHours(breakhrs);
-              setMinutes(breakmins);
-              setSeconds(breaksecs);
-              playSound();
-            } else {
-              if (currSess < totalSess) {
-                setCurrSess(currSess + 1);
-                setSBType("Study");
-                setHours(studyhrs);
-                setMinutes(studymins);
-                setSeconds(studysecs);
-                playSound();
-              }
-            }
+      countdown = setInterval(() => {
+        // Progress Countdown Logic
+        if (isRunning && progress !== 0) {
+          if (minutes === 0 && seconds === 0) {
+            setHours(hours - 1);
+            setMinutes(59);
+            setSeconds(59);
+          } else if (seconds === 0) {
+            setMinutes(minutes - 1);
+            setSeconds(59);
           } else {
             setSeconds(seconds - 1);
-
-            if (seconds === 0) {
-              setMinutes(minutes - 1);
-              setSeconds(59);
-            }
-            if (minutes === 0 && seconds === 0) {
-              setHours(hours - 1);
-              setMinutes(59);
-              setSeconds(59);
-            }
-            // }
           }
-        }, 1000);
-      } else {
-        if (p == t) {
-          setProgress(0);
-          setHours(studyhrs);
-          setMinutes(studymins);
-          setSeconds(studysecs);
-        }
-      }
-    }
+        } else if (progress === 0) {
+          setIsRunning(false);
+          playSound();
 
+          if (sbType === "Study") {
+            setSBType("Break");
+            setHours(breakhrs);
+            setMinutes(breakmins);
+            setSeconds(breaksecs);
+          } else if (sbType === "Break") {
+            if (currSess !== totalSess) {
+              setSBType("Study");
+              setHours(studyhrs);
+              setMinutes(studymins);
+              setSeconds(studysecs);
+              setCurrSess(currSess + 1);
+            } else {
+              setSBType("Complete!");
+              toast.success("Complete!");
+              playSound();
+            }
+          }
+        }
+      }, 1000);
+    }
     return () => {
       if (countdown) {
         clearInterval(countdown);
