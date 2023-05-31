@@ -17,6 +17,8 @@ export async function POST(request: Request) {
     breakminutes,
     elapsedstudy,
     elapsedbreak,
+    elapsedsession,
+    elapsedtype,
   } = body;
 
   const pomodorohistory = await prisma.pomodoroHistory.create({
@@ -28,6 +30,8 @@ export async function POST(request: Request) {
       breakminutes,
       elapsedstudy,
       elapsedbreak,
+      elapsedsession,
+      elapsedtype,
       userId: currentUser.id,
     },
   });
