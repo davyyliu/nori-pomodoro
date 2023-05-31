@@ -12,6 +12,7 @@ import SettingsButton from "./SettingsButton";
 import useSettingsModal from "@/app/hooks/useSettingsModal";
 import SoundButton from "./SoundButton";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 interface PomodoroTimerProps {
   studyhrs: number;
@@ -23,6 +24,8 @@ interface PomodoroTimerProps {
   sess: number;
   elapsedstudy: number;
   elapsedbreak: number;
+  elapsedsession: number;
+  elapsedtype: string;
 }
 
 const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
@@ -35,6 +38,8 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   sess,
   elapsedstudy,
   elapsedbreak,
+  elapsedsession,
+  elapsedtype,
 }) => {
   const [progress, setProgress] = useState<number>(0);
   const [hours, setHours] = useState(studyhrs);

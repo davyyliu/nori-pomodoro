@@ -33,6 +33,8 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
       breakminutes: 5,
       elapsedstudy: 0,
       elapsedbreak: 0,
+      elapsedsession: 1,
+      elapsedtype: "Study",
     },
   });
 

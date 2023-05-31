@@ -25,6 +25,14 @@ const Home = async () => {
           elapsedbreak={
             Array.isArray(time) ? 0 : Number(time?.elapsedbreak) || 0
           }
+          elapsedsession={
+            Array.isArray(time) ? 1 : Number(time?.elapsedstudy) || 1
+          }
+          elapsedtype={
+            Array.isArray(time)
+              ? "Study"
+              : String(time?.elapsedstudy) || "Study"
+          }
           // Dev Tests
           // studyhrs={0}
           // studymins={0}
