@@ -14,16 +14,17 @@ const Home = async () => {
         <PomodoroTimer
           studyhrs={Array.isArray(time) ? 0 : Number(time?.studyhours) || 0}
           studymins={Array.isArray(time) ? 5 : Number(time?.studyminutes) || 5}
-          // studyhrs={0}
-          // studymins={0}
           studysecs={0}
           breakhrs={Array.isArray(time) ? 0 : Number(time?.breakhours) || 0}
           breakmins={Array.isArray(time) ? 5 : Number(time?.breakminutes) || 5}
-          // breakhrs={0}
-          // breakmins={0}
           breaksecs={0}
           sess={Array.isArray(time) ? 1 : Number(time?.sessions) || 1}
-          // sess={0}
+          //// Dev Tests
+          // studyhrs={0}
+          // studymins={0}
+          // breakhrs={0}
+          // breakmins={0}
+          // sess={2}
         />
       </div>
     </ClientOnly>

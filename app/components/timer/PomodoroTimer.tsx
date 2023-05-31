@@ -41,7 +41,78 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   const [totalSess, setTotalSess] = useState(sess);
   const [sbType, setSBType] = useState<String>("Study");
   const [hasSound, setHasSound] = useState(true);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const settingsModal = useSettingsModal();
+
+  // Handle Countdown here
+
+  // useEffect is used here to ensure only 1 worker is created.
+  useEffect(() => {
+    const workerScript = `
+        let intervalId;
+        let time = 0;
+        let pausedTime = 0;
+        let isPaused = false;
+
+        function startTimer(t = 0) {
+          time = t
+          intervalId = setInterval(sendElapsedTime, 1000);
+        }
+
+        function stopTimer() {
+          clearInterval(intervalId);
+        }
+
+        function pauseTimer() {
+          if(!isPaused) {
+            
+          }
+        }
+
+
+        function sendElapsedTime() {
+          time ++;
+          const elapsedTime = time
+          self.postMessage(elapsedTime);
+        }
+
+        self.addEventListener("message", function (event) {
+          if (event.data === "start") {
+            startTimer();
+          } else if (event.data === "stop") {
+            stopTimer();
+          } else {
+            startTimer(event.data)
+          }
+        });
+      `;
+
+    // Creating Worker via above worker script
+    const blob = new Blob([workerScript], {
+      type: "applications/javascript",
+    });
+    const workerURL = URL.createObjectURL(blob);
+    const worker = new Worker(workerURL);
+
+    if (isRunning) {
+      // Allows play and pause capability with
+      // "else {startTimer(event.data)}" above
+      worker.postMessage(elapsedTime);
+
+      worker.onmessage = (event) => {
+        setElapsedTime(event.data);
+      };
+    } else {
+      worker.postMessage("stop");
+      worker.terminate();
+      URL.revokeObjectURL(workerURL);
+    }
+    return () => {
+      worker.postMessage("stop");
+      worker.terminate();
+      URL.revokeObjectURL(workerURL);
+    };
+  }, [isRunning]);
 
   function toggleSettings() {
     settingsModal.onOpen();
@@ -73,12 +144,11 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
 
+  // Handle switch between Rendering, "Study", "Break" and "Complete"
   useEffect(() => {
-    let countdown: NodeJS.Timeout | null = null;
-    let progress: number;
+    let p: number;
     let total: number;
-
-    progress = hours * 3600 + minutes * 60 + seconds;
+    p = elapsedTime;
     if (sbType === "Study") {
       total = studyhrs * 3600 + studymins * 60 + studysecs;
     } else if (sbType === "Break") {
@@ -86,61 +156,61 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     } else {
       total = progress;
     }
-    setProgress(100 - (progress * 100) / total);
+    setProgress((p * 100) / total);
 
     if (sbType === "Complete!") {
       setIsRunning(false);
     } else {
-      countdown = setInterval(() => {
-        // Progress Countdown Logic
-        if (isRunning && progress !== 0) {
-          if (minutes === 0 && seconds === 0) {
-            setHours(hours - 1);
-            setMinutes(59);
-            setSeconds(59);
-          } else if (seconds === 0) {
-            setMinutes(minutes - 1);
-            setSeconds(59);
-          } else {
-            setSeconds(seconds - 1);
-          }
-        } else if (progress === 0) {
-          setIsRunning(false);
-          playSound();
+      let s;
+      let m;
+      let h;
+      let diff;
 
-          if (sbType === "Study") {
-            setSBType("Break");
-            setHours(breakhrs);
-            setMinutes(breakmins);
-            setSeconds(breaksecs);
-          } else if (sbType === "Break") {
-            if (currSess !== totalSess) {
-              setSBType("Study");
-              setHours(studyhrs);
-              setMinutes(studymins);
-              setSeconds(studysecs);
-              setCurrSess(currSess + 1);
-            } else {
-              setSBType("Complete!");
-              toast.success("Complete!");
-              playSound();
-            }
+      // Handles Rendering of time on widget
+      if (isRunning && progress !== 100) {
+        diff = total - elapsedTime;
+        h = Math.floor(diff / 3600);
+        m = Math.floor((diff / 3600 - h) * 60);
+        s = ((diff / 3600 - h) * 60 - m) * 60;
+
+        setHours(Math.round(h));
+        setMinutes(Math.round(m));
+        setSeconds(Math.round(s));
+      } else if (progress === 100) {
+        setElapsedTime(0);
+        setIsRunning(false);
+        playSound();
+
+        // Handles switch between study, break, and complete
+        if (sbType === "Study") {
+          setSBType("Break");
+          setHours(breakhrs);
+          setMinutes(breakmins);
+          setSeconds(breaksecs);
+        } else if (sbType === "Break") {
+          if (currSess !== totalSess) {
+            setSBType("Study");
+            setHours(studyhrs);
+            setMinutes(studymins);
+            setSeconds(studysecs);
+            setCurrSess(currSess + 1);
+          } else {
+            setSBType("Complete!");
+            toast.success("Complete!");
+            playSound();
           }
         }
-      }, 1000);
-    }
-    return () => {
-      if (countdown) {
-        clearInterval(countdown);
       }
-    };
-  }, [seconds, isRunning]);
+    }
+    return () => {};
+  }, [elapsedTime, isRunning]);
 
   const handleStartStop = () => {
     setIsRunning(!isRunning);
   };
 
   const handleReset = () => {
+    setProgress(0);
     setHours(studyhrs);
     setMinutes(studymins);
     setSeconds(studysecs);
