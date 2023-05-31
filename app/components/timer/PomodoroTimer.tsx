@@ -21,6 +21,8 @@ interface PomodoroTimerProps {
   breakmins: number;
   breaksecs: number;
   sess: number;
+  elapsedstudy: number;
+  elapsedbreak: number;
 }
 
 const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
@@ -31,6 +33,8 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   breakmins,
   breaksecs,
   sess,
+  elapsedstudy,
+  elapsedbreak,
 }) => {
   const [progress, setProgress] = useState<number>(0);
   const [hours, setHours] = useState(studyhrs);
@@ -210,14 +214,14 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
   const handleReset = () => {
     setProgress(0);
+    setCurrSess(1);
+    setElapsedTime(0);
+    setIsRunning(false);
+    setSBType("Study");
     setHours(studyhrs);
     setMinutes(studymins);
     setSeconds(studysecs);
-    setSBType("Study");
-    setIsRunning(false);
     setTotalSess(sess);
-    setCurrSess(1);
-    setElapsedTime(0);
   };
 
   const handleSound = () => {
