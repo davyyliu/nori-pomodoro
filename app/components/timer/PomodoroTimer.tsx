@@ -69,7 +69,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           }
         }
 
-
         function sendElapsedTime() {
           time ++;
           const elapsedTime = time
@@ -218,6 +217,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     setIsRunning(false);
     setTotalSess(sess);
     setCurrSess(1);
+    setElapsedTime(0);
   };
 
   const handleSound = () => {
