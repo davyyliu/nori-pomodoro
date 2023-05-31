@@ -19,7 +19,13 @@ const Home = async () => {
           breakmins={Array.isArray(time) ? 5 : Number(time?.breakminutes) || 5}
           breaksecs={0}
           sess={Array.isArray(time) ? 1 : Number(time?.sessions) || 1}
-          //// Dev Tests
+          elapsedstudy={
+            Array.isArray(time) ? 0 : Number(time?.elapsedstudy) || 0
+          }
+          elapsedbreak={
+            Array.isArray(time) ? 0 : Number(time?.elapsedbreak) || 0
+          }
+          // Dev Tests
           // studyhrs={0}
           // studymins={0}
           // breakhrs={0}
