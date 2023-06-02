@@ -6,9 +6,13 @@ import Image from "next/image";
 const Logo = () => {
   const router = useRouter();
 
+  function homePage() {
+    router.push("/");
+  }
+
   return (
     <Image
-      onClick={() => router.push("/")}
+      onClick={homePage}
       alt="Imnori"
       className="md:block cursor-pointer"
       height="120"

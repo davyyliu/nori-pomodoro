@@ -36,6 +36,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
   function toggleHistory() {
     router.push("/history");
+    router.refresh();
     toggleOpen();
   }
   return (
@@ -59,6 +60,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         transition"
         >
           <AiOutlineMenu color="black" />
+          <div className="font-bold">{currentUser?.name}</div>
           <div className="hidden md:block">
             <Avatar src={currentUser?.image} />
           </div>
