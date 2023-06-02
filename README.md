@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nori Pomodoro
+
+## Website:
+
+## Video Demo: <URL google.com>
+
+## Description:
+
+Nori Pomodoro is a web app greatly inspired by the Pomodoro studying technique. As someone who wants to improve studying for longer sessions, this is extremely helpful.
+
+Not only does this web app enables better studying, but it also has some unique quirks such as enabling the parallax effect on the background and being able to retain your progress if the web app exits for whatever reason.
 
 ## Getting Started
 
@@ -6,10 +16,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
