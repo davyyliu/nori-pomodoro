@@ -128,7 +128,7 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
         <RangeSlider
           title="mins"
           value={studyminutes}
-          min={1}
+          min={0}
           max={60}
           step={5}
           onChange={(value) => setCustomValue("studyminutes", value)}
@@ -151,7 +151,7 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
         <RangeSlider
           title="mins"
           value={breakminutes}
-          min={1}
+          min={0}
           max={60}
           step={5}
           onChange={(value) => setCustomValue("breakminutes", value)}

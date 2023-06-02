@@ -124,8 +124,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     elapsedtype: "Study",
   };
 
-  console.log("first instance: ", udata);
-
   const uploadData = () => {
     if (currentUser) {
       axios
@@ -253,7 +251,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
     if (sbType === "Complete!") {
       uploadData();
-      console.log(udata);
       setIsRunning(false);
     } else {
       let s;
@@ -281,7 +278,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         setMinutes(Math.round(m));
         setSeconds(Math.round(s));
         uploadData();
-        console.log(udata);
       } else if (progress === 100) {
         setProgress(0);
         setElapsedTime(0);
@@ -309,12 +305,7 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
             setDbElapsedSession(currSess);
             uploadData();
           } else {
-            console.log("abc");
             setSBType("Complete!");
-            // setDbElapsedType(sbType);
-            // setDbElapsedSession(1);
-            // setDbElapsedStudy(0);
-            // setDbElapsedBreak(0);
             toast.success("Complete!");
             playSound();
             uploadData();
