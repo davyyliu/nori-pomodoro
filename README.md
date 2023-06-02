@@ -6,7 +6,7 @@
 
 ### Video Demo:
 
-[Video](https://nori-pomodoro.vercel.app/)
+[Video](https://youtu.be/KA8mpU91Fn0/)
 
 <hr>
 
