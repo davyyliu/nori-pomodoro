@@ -311,10 +311,10 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           } else {
             console.log("abc");
             setSBType("Complete!");
-            setDbElapsedType(sbType);
-            setDbElapsedSession(1);
-            setDbElapsedStudy(0);
-            setDbElapsedBreak(0);
+            // setDbElapsedType(sbType);
+            // setDbElapsedSession(1);
+            // setDbElapsedStudy(0);
+            // setDbElapsedBreak(0);
             toast.success("Complete!");
             playSound();
             uploadData();
