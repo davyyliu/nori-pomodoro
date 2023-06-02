@@ -6,7 +6,7 @@
 
 ### Video Demo:
 
-[Video](https://youtu.be/KA8mpU91Fn0/)
+[Video](https://youtu.be/8hqRyN0fOeI)
 
 <hr>
 
