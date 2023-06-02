@@ -27,10 +27,10 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
   } = useForm<FieldValues>({
     defaultValues: {
       studyhours: 0,
-      studyminutes: 5,
+      studyminutes: 0,
       sessions: 1,
       breakhours: 0,
-      breakminutes: 5,
+      breakminutes: 0,
       elapsedstudy: 0,
       elapsedbreak: 0,
       elapsedsession: 1,
@@ -128,7 +128,7 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
         <RangeSlider
           title="mins"
           value={studyminutes}
-          min={5}
+          min={0}
           max={60}
           step={5}
           onChange={(value) => setCustomValue("studyminutes", value)}
@@ -151,7 +151,7 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
         <RangeSlider
           title="mins"
           value={breakminutes}
-          min={5}
+          min={0}
           max={60}
           step={5}
           onChange={(value) => setCustomValue("breakminutes", value)}

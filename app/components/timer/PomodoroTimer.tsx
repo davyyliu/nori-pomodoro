@@ -13,8 +13,14 @@ import useSettingsModal from "@/app/hooks/useSettingsModal";
 import SoundButton from "./SoundButton";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { SafeUser } from "@/app/types";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
 
 interface PomodoroTimerProps {
+  id: String | null;
+  exist: string;
+  currentUser?: SafeUser | null;
   studyhrs: number;
   studymins: number;
   studysecs: number;
@@ -29,6 +35,9 @@ interface PomodoroTimerProps {
 }
 
 const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
+  id,
+  exist,
+  currentUser,
   studyhrs,
   studymins,
   studysecs,
@@ -41,18 +50,95 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   elapsedsession,
   elapsedtype,
 }) => {
-  const [progress, setProgress] = useState<number>(0);
-  const [hours, setHours] = useState(studyhrs);
-  const [minutes, setMinutes] = useState(studymins);
-  const [seconds, setSeconds] = useState(studysecs);
+  let difference: number = 0;
+  let tTime: number = 0;
+  let eSH: number = 0;
+  let eSM: number = 0;
+  let eSS: number = 0;
+  let eBH: number = 0;
+  let eBM: number = 0;
+  let eBS: number = 0;
+  let eP: number = 0;
+  let eT: number = 0;
+
+  const [sbType, setSBType] = useState<String>(elapsedtype);
+  if (sbType === "Study") {
+    tTime = studyhrs * 3600 + studymins * 60 + studysecs;
+    difference = tTime - elapsedstudy;
+    eSH = Math.floor(difference / 3600);
+    eSM = Math.floor((difference / 3600 - eSH) * 60);
+    eSS = Math.round(((difference / 3600 - eSH) * 60 - eSM) * 60);
+    eP = (elapsedstudy * 100) / tTime;
+    eT = elapsedstudy;
+  } else if (sbType === "Break") {
+    tTime = breakhrs * 3600 + breakmins * 60 + breaksecs;
+    difference = tTime - elapsedbreak;
+    eBH = Math.floor(difference / 3600);
+    eBM = Math.floor((difference / 3600 - eBH) * 60);
+    eBS = Math.round(((difference / 3600 - eBH) * 60 - eBM) * 60);
+    eP = (elapsedbreak * 100) / tTime;
+    eT = elapsedbreak;
+  }
+
+  const [hours, setHours] = useState(sbType === "Study" ? eSH : eBH);
+  const [minutes, setMinutes] = useState(sbType === "Study" ? eSM : eBM);
+  const [seconds, setSeconds] = useState(sbType === "Study" ? eSS : eBS);
+  const [progress, setProgress] = useState<number>(eP);
+
+  const [currSess, setCurrSess] = useState(elapsedsession);
   const [isRunning, setIsRunning] = useState(false);
-  const [currSess, setCurrSess] = useState(1);
   const [totalSess, setTotalSess] = useState(sess);
-  const [sbType, setSBType] = useState<String>("Study");
   const [hasSound, setHasSound] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
   const settingsModal = useSettingsModal();
+  const loginModal = useLoginModal();
+  const router = useRouter();
+  const [dbElapsedStudy, setDbElapsedStudy] = useState<number>(0);
+  const [dbElapsedBreak, setDbElapsedBreak] = useState<number>(0);
+  const [dbElapsedSession, setDbElapsedSession] =
+    useState<number>(elapsedsession);
+  const [dbElapsedType, setDbElapsedType] = useState<String>("Study");
 
+  let udata = {
+    id: id,
+    studyhours: studyhrs,
+    studyminutes: studymins,
+    sessions: sess,
+    breakhours: breakhrs,
+    breakminutes: breakmins,
+    elapsedstudy: dbElapsedStudy,
+    elapsedbreak: dbElapsedBreak,
+    elapsedsession: dbElapsedSession,
+    elapsedtype: dbElapsedType,
+  };
+
+  let defaultValues = {
+    studyhours: studyhrs,
+    studyminutes: studymins,
+    sessions: sess,
+    breakhours: breakhrs,
+    breakminutes: breakmins,
+    elapsedstudy: 0,
+    elapsedbreak: 0,
+    elapsedsession: 1,
+    elapsedtype: "Study",
+  };
+
+  console.log("first instance: ", udata);
+
+  const uploadData = () => {
+    if (currentUser) {
+      axios
+        .post("/api/elapsedTime", udata)
+        .then(() => {})
+        .catch((error) => {
+          toast.error(error);
+        });
+    } else {
+      toast.error("Please login first!");
+      loginModal.onOpen();
+    }
+  };
   // Handle Countdown here
 
   // useEffect is used here to ensure only 1 worker is created.
@@ -104,7 +190,6 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
     if (isRunning) {
       // Allows play and pause capability with
-      // "else {startTimer(event.data)}" above
       worker.postMessage(elapsedTime);
 
       worker.onmessage = (event) => {
@@ -151,8 +236,8 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
-
   // Handle switch between Rendering, "Study", "Break" and "Complete"
+
   useEffect(() => {
     let p: number;
     let total: number;
@@ -164,19 +249,30 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     } else {
       total = progress;
     }
-    setProgress((p * 100) / total);
+    setProgress((p * 100) / total + eP);
 
     if (sbType === "Complete!") {
+      uploadData();
+      console.log(udata);
       setIsRunning(false);
     } else {
       let s;
       let m;
       let h;
       let diff;
-
+      let dbElapsedTime = 0;
       // Handles Rendering of time on widget
       if (isRunning && progress !== 100) {
-        diff = total - elapsedTime;
+        if (sbType == "Study") {
+          dbElapsedTime = elapsedstudy;
+          setDbElapsedStudy(elapsedTime + dbElapsedTime);
+        } else if (sbType == "Break") {
+          dbElapsedTime = elapsedbreak;
+          setDbElapsedBreak(elapsedTime + dbElapsedTime);
+        }
+        setDbElapsedSession(currSess);
+        setDbElapsedType(sbType);
+        diff = total - (elapsedTime + dbElapsedTime);
         h = Math.floor(diff / 3600);
         m = Math.floor((diff / 3600 - h) * 60);
         s = ((diff / 3600 - h) * 60 - m) * 60;
@@ -184,7 +280,10 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         setHours(Math.round(h));
         setMinutes(Math.round(m));
         setSeconds(Math.round(s));
+        uploadData();
+        console.log(udata);
       } else if (progress === 100) {
+        setProgress(0);
         setElapsedTime(0);
         setIsRunning(false);
         playSound();
@@ -192,20 +291,33 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         // Handles switch between study, break, and complete
         if (sbType === "Study") {
           setSBType("Break");
+          setDbElapsedStudy(0);
           setHours(breakhrs);
           setMinutes(breakmins);
           setSeconds(breaksecs);
+          setDbElapsedType(sbType);
+          uploadData();
         } else if (sbType === "Break") {
           if (currSess !== totalSess) {
             setSBType("Study");
+            setDbElapsedBreak(0);
             setHours(studyhrs);
             setMinutes(studymins);
             setSeconds(studysecs);
             setCurrSess(currSess + 1);
+            setDbElapsedType(sbType);
+            setDbElapsedSession(currSess);
+            uploadData();
           } else {
+            console.log("abc");
             setSBType("Complete!");
+            setDbElapsedType(sbType);
+            setDbElapsedSession(1);
+            setDbElapsedStudy(0);
+            setDbElapsedBreak(0);
             toast.success("Complete!");
             playSound();
+            uploadData();
           }
         }
       }
@@ -214,19 +326,47 @@ const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   }, [elapsedTime, isRunning]);
 
   const handleStartStop = () => {
-    setIsRunning(!isRunning);
+    if (!currentUser) {
+      toast.error("Please log in first!");
+      loginModal.onOpen();
+    } else {
+      if (exist === "undefined") {
+        toast.error("Please set up a timer first!");
+        settingsModal.onOpen();
+      } else {
+        setIsRunning(!isRunning);
+      }
+    }
   };
 
   const handleReset = () => {
-    setProgress(0);
-    setCurrSess(1);
-    setElapsedTime(0);
-    setIsRunning(false);
-    setSBType("Study");
-    setHours(studyhrs);
-    setMinutes(studymins);
-    setSeconds(studysecs);
-    setTotalSess(sess);
+    if (currentUser) {
+      axios
+        .post("/api/totalTime", defaultValues)
+        .then(() => {
+          toast.success("Pomodoro Ready!");
+          setProgress(0);
+          setCurrSess(1);
+          setElapsedTime(0);
+          setIsRunning(false);
+          setSBType("Study");
+          setHours(studyhrs);
+          setMinutes(studymins);
+          setSeconds(studysecs);
+          setTotalSess(sess);
+          setDbElapsedStudy(0);
+          setDbElapsedBreak(0);
+          setDbElapsedSession(1);
+          setDbElapsedType("Study");
+          router.refresh();
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    } else {
+      toast.error("Please log in first!");
+      loginModal.onOpen();
+    }
   };
 
   const handleSound = () => {
