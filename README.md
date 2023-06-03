@@ -21,7 +21,7 @@ Not only does this web app enables for better studying, it also has some unique 
 ## Concepts and Tech Stack:
 
 <details open>
-<summary><b>Click to collapse</b></summary>
+<summary><b>Click to expand/collapse</b></summary>
 
 #### <b>Concepts applied on this web app</b>
 
@@ -58,7 +58,7 @@ Not only does this web app enables for better studying, it also has some unique 
 
 <details open>
 
-<summary><b>Click to collapse</b></summary>
+<summary><b>Click to expand/collapse</b></summary>
 
 - `app/actions `
 
