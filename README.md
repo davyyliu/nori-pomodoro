@@ -20,7 +20,7 @@ Not only does this web app enables for better studying, it also has some unique 
 
 ## Concepts and Tech Stack:
 
-<details>
+<details open>
 <summary><b>Click to collapse</b></summary>
 
 #### <b>Concepts applied on this web app</b>
@@ -56,7 +56,7 @@ Not only does this web app enables for better studying, it also has some unique 
 
 ## Main Files
 
-<details>
+<details open>
 
 <summary><b>Click to collapse</b></summary>
 
@@ -193,7 +193,7 @@ npm run dev
 ```
 
 <style>
-details[open] > summary:after {
+details[close]  summary:after {
   content: " ";
 }
 
