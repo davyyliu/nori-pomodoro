@@ -191,17 +191,3 @@ Then, run the development server:
 ```bash
 npm run dev
 ```
-
-<style>
-details[close]  summary:after {
-  content: " ";
-}
-
-details > summary:after {
-  content: " ";
-}
-
-details > summary {
-  cursor: pointer;
-}
-</style>
