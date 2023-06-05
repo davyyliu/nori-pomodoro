@@ -27,10 +27,10 @@ const SettingsModal: React.FC<SettingsProps> = ({ currentUser }) => {
   } = useForm<FieldValues>({
     defaultValues: {
       studyhours: 0,
-      studyminutes: 0,
+      studyminutes: 5,
       sessions: 1,
       breakhours: 0,
-      breakminutes: 0,
+      breakminutes: 5,
       elapsedstudy: 0,
       elapsedbreak: 0,
       elapsedsession: 1,
